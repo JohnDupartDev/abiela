@@ -1,0 +1,157 @@
+---
+// src/components/ProductCatalog.astro
+import { Icon } from 'astro-icon/components';
+
+const products = [
+    { name: 'Bicicleta electrica Huyser Moscow 2.0', desc: 'La Huyser Moscow 2.0 es una E-bike urbana potente y robusta, diseñada para quienes buscan mayor rendimiento y carácter en cada trayecto', price: '$ 3.900.000', tag: 'Nuevo', img: '/images/e-bike-moscow.jpg', slug: 'aurora-mtb-pro-x1' },
+    { name: 'Bicicleta Electrica Huyser Portugal UltraMax Litio', desc: 'La Huyser Portugal Ultra Max Litio es una E-bike urbana compacta, práctica y eficiente, diseñada para moverte con agilidad en la ciudad. ', price: '$ 3.200.000', img: '/images/e-bike-portugal.jpg', slug: 'tech-helmet-v4' },
+    { name: 'Bicicleta Electrica Huyser New York Ultra Max Litio', desc: 'Inspirada en la energía imparable de Nueva York, la Huyser New York Ultra Max Litio está diseñada para quienes viven la ciudad a su propio ritmo.', price: '$5.800.000', img: 'images/e-bike-new-york.jpg', slug: 'k-drive-city-plus' },
+    { name: 'Bicicleta Electrica Huyser Roma', desc: 'Inspirada en el encanto histórico y la elegancia eterna de Roma, la Huyser Roma combina simplicidad, eficiencia y estilo para tus recorridos diarios', price: '$3.500.000', tag: 'Pro', img: '/images/bici-2.png', slug: 'specialized-stumpjumper' },
+  
+];
+---
+
+<section class="py-12 md:py-20 max-w-[1400px] mx-auto px-4 md:px-8 bg-brand-dark overflow-hidden text-white font-sans">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10 border-b border-white/5 pb-6">
+        <div class="space-y-1">
+            <span class="text-brand-green font-bold tracking-widest text-[10px] uppercase italic">Bicicletas Eléctricas</span>
+            <h2 class="font-black text-3xl md:text-4xl italic uppercase tracking-tighter leading-none">Catálogo <span class="text-brand-blue">Abiela</span></h2>
+        </div>
+        <a class="text-brand-green font-black flex items-center gap-1.5 hover:text-brand-blue transition-colors uppercase italic text-[11px] group tracking-widest" href="/tienda">
+            Ver todo <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-1" />
+        </a>
+    </div>
+
+    <div class="relative -mx-2 md:mx-0">
+        <div 
+            class="flex overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide gap-4 md:gap-6 
+                   md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:overflow-visible md:snap-none"
+            style="scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch;"
+        >
+            {products.map((product) => (
+                <div 
+                    class="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.05] hover:border-brand-blue/20 flex flex-col h-full 
+                           flex-shrink-0 w-[calc(100%-2rem)] snap-start md:w-auto md:flex-shrink-1"
+                >
+                    
+                    <a href={`/productos/${product.slug}`} class="block relative flex-shrink-0">
+                        <div class="relative aspect-square flex items-center justify-center p-1 bg-gradient-to-b from-white/[0.03] to-transparent overflow-hidden">
+                            <img 
+                                class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 rounded-xl" 
+                                alt={product.name} 
+                                src={product.img}
+                                loading="lazy"
+                            />
+                            {product.tag && (
+                                <span class="absolute top-3 left-3 bg-brand-blue text-white text-[9px] font-black px-2 py-0.5 rounded uppercase italic tracking-widest z-10 shadow-lg">
+                                    {product.tag}
+                                </span>
+                            )}
+                        </div>
+                    </a>
+                    
+                    <div class="p-4 flex flex-col flex-grow">
+                        <div class="flex-grow">
+                            <a href={`/productos/${product.slug}`} class="block group/text">
+                                <h3 class="text-white text-base font-bold uppercase italic tracking-tight line-clamp-1 group-hover/text:text-brand-blue transition-colors mb-1">
+                                    {product.name}
+                                </h3>
+                                <p class="text-gray-500 text-[11px] leading-snug line-clamp-2 min-h-[32px] font-normal">
+                                    {product.desc}
+                                </p>
+                            </a>
+                        </div>
+                        
+                        <div class="flex items-center justify-between pt-4 mt-auto">
+                            <span class="text-lg font-black text-brand-green italic tracking-tighter leading-none">
+                                {product.price}
+                            </span>
+                            
+                            <button 
+                                class="add-to-cart-btn size-10 bg-white text-brand-dark rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
+                                data-name={product.name}
+                                data-price={product.price}
+                            >
+                                <Icon name="lucide:shopping-cart" class="cart-icon size-4 stroke-[2.5px]" />
+                                <Icon name="lucide:check" class="check-icon hidden size-5 stroke-[3px]" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    import { addToCart } from '../../store/cartStore';
+
+    const cartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+    cartButtons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const name = btn.getAttribute('data-name');
+            const price = btn.getAttribute('data-price');
+
+            if (name && price) {
+                addToCart({ name, price });
+
+                const cartIcon = btn.querySelector('.cart-icon');
+                const checkIcon = btn.querySelector('.check-icon');
+
+                if (cartIcon && checkIcon) {
+                    btn.classList.add('btn-success');
+                    cartIcon.classList.add('hidden');
+                    checkIcon.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        btn.classList.remove('btn-success');
+                        cartIcon.classList.remove('hidden');
+                        checkIcon.classList.add('hidden');
+                    }, 1500);
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    .btn-success {
+        background-color: #5fb660 !important;
+        color: white !important;
+        box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    img {
+        will-change: transform;
+        backface-visibility: hidden;
+    }
+
+    .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+</style>

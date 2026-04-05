@@ -1,0 +1,286 @@
+---
+// src/pages/tienda.astro
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import ProductCatalog from '@/components/ProductCatalog.astro';
+import { eBikes } from '../data/products';
+
+// Seleccionamos los primeros 3 productos para el Slider dinámico
+const sliderBikes = eBikes.slice(0, 3);
+---
+
+<Layout title="Tienda Abiela | Elite Mobility Catalog">
+    
+    <main class="min-h-screen pb-20 bg-brand-dark text-white selection:bg-brand-blue/30 pt-28">
+        
+        <div class="flex flex-col lg:flex-row max-w-[1440px] mx-auto">
+            
+            <aside class="w-full lg:w-80 lg:h-screen lg:sticky lg:top-20 border-b lg:border-b-0 lg:border-r border-white/5 bg-brand-dark/20 backdrop-blur-xl z-40">
+                <div class="p-6 md:p-10">
+                    <div class="mb-6 lg:mb-10">
+                        <h2 class="text-xl lg:text-2xl font-black italic uppercase tracking-tighter text-white leading-none">
+                            Filtros <span class="text-brand-blue">Pro</span>
+                        </h2>
+                    </div>
+                    
+                    <nav class="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-x-visible no-scrollbar pb-4 lg:pb-0" id="filter-container">
+                        <button data-category="all" class="filter-category active flex-shrink-0 flex items-center gap-3 px-5 py-3 lg:py-4 rounded-2xl bg-brand-green text-brand-dark font-black uppercase italic text-[10px] lg:text-[11px] tracking-widest transition-all whitespace-nowrap">
+                            <Icon name="lucide:layout-grid" class="size-4 lg:size-5" />
+                            <span>Todos</span>
+                        </button>
+                        
+                        <button data-category="urban" class="filter-category flex-shrink-0 flex items-center gap-3 px-5 py-3 lg:py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                            <Icon name="lucide:bike" class="size-4 lg:size-5" />
+                            <span class="font-black uppercase italic text-[10px] lg:text-[11px] tracking-widest">Urbanas</span>
+                        </button>
+
+                        <button data-category="compact" class="filter-category flex-shrink-0 flex items-center gap-3 px-5 py-3 lg:py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-all whitespace-nowrap">
+                            <Icon name="lucide:zap" class="size-4 lg:size-5" />
+                            <span class="font-black uppercase italic text-[10px] lg:text-[11px] tracking-widest">Compactas</span>
+                        </button>
+
+                        <div class="hidden lg:block h-px bg-white/5 my-4"></div>
+
+                        <button data-sort="asc" class="sort-btn flex-shrink-0 flex items-center gap-3 px-5 py-3 lg:py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 hover:text-brand-green transition-all whitespace-nowrap" data-sort="asc">
+                            <Icon name="lucide:arrow-up-narrow-wide" class="size-4 lg:size-5" />
+                            <span class="font-black uppercase italic text-[10px] lg:text-[11px] tracking-widest">Precio ↑</span>
+                        </button>
+
+                        <button data-sort="desc" class="sort-btn flex-shrink-0 flex items-center gap-3 px-5 py-3 lg:py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 hover:text-brand-blue transition-all whitespace-nowrap" data-sort="desc">
+                            <Icon name="lucide:arrow-down-wide-narrow" class="size-4 lg:size-5" />
+                            <span class="font-black uppercase italic text-[10px] lg:text-[11px] tracking-widest">Precio ↓</span>
+                        </button>
+                    </nav>
+                </div>
+            </aside>
+
+            <section class="flex-1 p-4 md:p-8 lg:p-12 min-w-0">
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 mb-12 lg:mb-20">
+                    
+                    <div class="md:col-span-8 relative h-[350px] md:h-[500px] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden group border border-white/5 shadow-2xl bg-[#0a0a0a]">
+                        <div id="hero-slider" class="relative w-full h-full">
+                            {sliderBikes.map((bike, index) => (
+                                <div 
+                                    class={`hero-slide absolute inset-0 transition-all duration-1000 ease-in-out ${index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+                                    data-index={index}
+                                >
+                                    <img 
+                                        alt={bike.name} 
+                                        class="absolute inset-0 w-full h-full object-cover opacity-50 transition-transform duration-[10s] scale-110" 
+                                        src={bike.image} 
+                                    />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/20 to-transparent"></div>
+                                    
+                                    <div class="absolute bottom-0 left-0 p-6 md:p-12 w-full transform transition-all duration-700 translate-y-4 opacity-0 slide-content">
+                                        <span class="px-3 py-1 rounded-full bg-brand-blue text-white text-[9px] font-black uppercase tracking-widest italic mb-3 inline-block shadow-lg">Featured 2026</span>
+                                        <h3 class="text-3xl md:text-6xl font-black italic uppercase tracking-tighter text-white mb-4 leading-none truncate">
+                                            {bike.name}
+                                        </h3>
+                                        <div class="flex items-center gap-4">
+                                            <a href={`/productos/${bike.slug}`} class="inline-flex items-center gap-3 bg-white text-brand-dark px-6 py-3 rounded-xl font-black uppercase italic text-[10px] tracking-widest hover:bg-brand-green transition-all shadow-xl active:scale-95">
+                                                Detalles <Icon name="lucide:arrow-right" class="size-4" />
+                                            </a>
+                                            <span class="text-brand-green font-black italic text-lg tracking-tighter">{bike.price}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div class="absolute top-8 right-8 z-30 flex gap-2">
+                            {sliderBikes.map((_, i) => (
+                                <div class="h-1 w-8 bg-white/10 rounded-full overflow-hidden">
+                                    <div class="progress-bar h-full bg-brand-blue w-0" data-target={i}></div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-4 relative rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-[#0d0d0d] p-6 lg:p-8 flex flex-col justify-between border border-white/5">
+                        <div class="absolute inset-0 bg-brand-green/5 blur-3xl opacity-50"></div>
+                        <div class="relative z-10">
+                            <Icon name="lucide:wrench" class="text-brand-green size-8 lg:size-10 mb-4" />
+                            <h3 class="text-xl lg:text-2xl font-black italic uppercase tracking-tighter text-white leading-none mb-2">Respaldo Técnico</h3>
+                            <p class="text-[11px] text-gray-500 font-light italic uppercase">Servicio directo en Zipaquirá.</p>
+                        </div>
+                        <div class="relative z-10 pt-4 border-t border-white/5 mt-4">
+                            <span class="text-2xl lg:text-3xl font-black italic text-brand-blue leading-none">100%</span>
+                            <p class="text-[9px] text-gray-600 uppercase font-bold tracking-widest mt-1">Garantía Abiela</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8 border-b border-white/5 pb-6">
+                    <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-none">
+                        Catálogo <span class="text-brand-blue">2026</span>
+                    </h2>
+                </div>
+
+                <div id="product-feed-container" class="w-full">
+                    <ProductCatalog />
+                </div>
+
+                <div class="mt-16 p-8 md:p-16 rounded-[2.5rem] lg:rounded-[3rem] relative overflow-hidden bg-[#0d0d0d] border border-white/5">
+                    <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-blue/5 blur-[100px]"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="text-center md:text-left">
+                            <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white mb-4 leading-none">¿Dudas?</h2>
+                            <p class="text-gray-500 text-sm font-light italic">Configuramos tu E-Bike a medida.</p>
+                        </div>
+                        <a href="https://wa.me/573213634801" class="w-full md:w-auto px-8 py-4 rounded-xl bg-brand-blue text-white font-black uppercase italic text-xs tracking-widest hover:scale-105 transition-transform text-center flex items-center justify-center gap-3 active:scale-95">
+                            <Icon name="lucide:message-circle" class="size-5" />
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <nav class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] h-16 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full flex justify-around items-center px-2 z-50 shadow-2xl">
+        <a href="/" class="flex flex-col items-center text-gray-500 py-2 px-4">
+            <Icon name="lucide:home" class="size-5" />
+            <span class="text-[8px] uppercase font-black italic mt-1">Inicio</span>
+        </a>
+        <div class="bg-brand-blue text-white p-3 rounded-full -translate-y-4 shadow-lg shadow-brand-blue/40">
+            <Icon name="lucide:layout-grid" class="size-6" />
+        </div>
+        <a href="/carrito" class="flex flex-col items-center text-gray-500 py-2 px-4">
+            <Icon name="lucide:shopping-cart" class="size-5" />
+            <span class="text-[8px] uppercase font-black italic mt-1">Carrito</span>
+        </a>
+    </nav>
+</Layout>
+
+<script>
+    function initStoreLogic() {
+        // --- LÓGICA DE FILTRADO Y ORDENAMIENTO ---
+        const grid = document.querySelector('#product-grid');
+        const sortBtns = document.querySelectorAll('.sort-btn');
+        const filterBtns = document.querySelectorAll('.filter-category');
+
+        if (grid) {
+            const sortProducts = (order) => {
+                const items = Array.from(grid.querySelectorAll('.product-item'));
+                items.sort((a, b) => {
+                    const priceA = parseInt(a.getAttribute('data-price') || '0');
+                    const priceB = parseInt(b.getAttribute('data-price') || '0');
+                    return order === 'asc' ? priceA - priceB : priceB - priceA;
+                });
+                grid.innerHTML = '';
+                items.forEach(item => grid.appendChild(item));
+            };
+
+            const filterByCategory = (category) => {
+                const items = grid.querySelectorAll('.product-item');
+                items.forEach(item => {
+                    const itemCat = item.getAttribute('data-category');
+                    if (category === 'all' || itemCat === category) {
+                        (item as HTMLElement).style.display = 'flex';
+                    } else {
+                        (item as HTMLElement).style.display = 'none';
+                    }
+                });
+            };
+
+            sortBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const order = btn.getAttribute('data-sort');
+                    sortProducts(order);
+                    sortBtns.forEach(b => {
+                        b.classList.remove('border-brand-green', 'border-brand-blue', 'text-white');
+                        b.classList.add('text-gray-400', 'border-white/10');
+                    });
+                    btn.classList.remove('text-gray-400', 'border-white/10');
+                    btn.classList.add(order === 'asc' ? 'border-brand-green' : 'border-brand-blue', 'text-white');
+                });
+            });
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const cat = btn.getAttribute('data-category');
+                    filterByCategory(cat);
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-brand-green', 'text-brand-dark', 'active');
+                        b.classList.add('bg-white/5', 'text-gray-400', 'border-white/10');
+                    });
+                    btn.classList.remove('bg-white/5', 'text-gray-400', 'border-white/10');
+                    btn.classList.add('bg-brand-green', 'text-brand-dark', 'active');
+                });
+            });
+        }
+
+        // --- LÓGICA DEL HERO SLIDER ---
+        const slides = document.querySelectorAll('.hero-slide');
+        const contents = document.querySelectorAll('.slide-content');
+        const bars = document.querySelectorAll('.progress-bar');
+        let current = 0;
+        const duration = 5000;
+
+        if (slides.length > 0) {
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    const content = contents[i];
+                    const bar = bars[i] as HTMLElement;
+                    if (i === index) {
+                        slide.classList.replace('opacity-0', 'opacity-100');
+                        slide.classList.replace('z-0', 'z-10');
+                        slide.querySelector('img').style.transform = 'scale(1)';
+                        content.classList.replace('opacity-0', 'opacity-100');
+                        content.classList.replace('translate-y-4', 'translate-y-0');
+                        bar.style.transition = 'none';
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.transition = `width ${duration}ms linear`;
+                            bar.style.width = '100%';
+                        }, 50);
+                    } else {
+                        slide.classList.replace('opacity-100', 'opacity-0');
+                        slide.classList.replace('z-10', 'z-0');
+                        slide.querySelector('img').style.transform = 'scale(1.1)';
+                        content.classList.replace('opacity-100', 'opacity-0');
+                        content.classList.replace('translate-y-0', 'translate-y-4');
+                        bar.style.transition = 'none';
+                        bar.style.width = '0%';
+                    }
+                });
+            }
+
+            const sliderInterval = setInterval(() => {
+                current = (current + 1) % slides.length;
+                showSlide(current);
+            }, duration);
+
+            showSlide(0);
+
+            // Guardar el intervalo para limpiarlo si es necesario (Astro swap handles this mostly)
+            (window as any).heroInterval = sliderInterval;
+        }
+    }
+
+    initStoreLogic();
+    document.addEventListener('astro:after-swap', () => {
+        if ((window as any).heroInterval) clearInterval((window as any).heroInterval);
+        initStoreLogic();
+    });
+</script>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .italic { font-style: italic; }
+    section { min-width: 0; overflow: hidden; }
+    .truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .hero-slide { will-change: opacity, transform; }
+    .slide-content { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    #product-grid > * {
+        animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

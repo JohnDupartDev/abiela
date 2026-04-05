@@ -6,12 +6,19 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 4050",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.1.2"
+    "@iconify-json/lucide": "^1.2.101",
+    "@nanostores/persistent": "^1.3.3",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.2",
+    "astro-icon": "^1.1.5",
+    "motion": "^12.38.0",
+    "nanostores": "^1.2.0",
+    "tailwindcss": "^4.2.2"
   }
 }

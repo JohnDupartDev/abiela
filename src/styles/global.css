@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/* AQUÍ DEFINIMOS LOS COLORES EN V4 */
+@theme {
+  --color-brand-dark: #071f2d;
+  --color-brand-blue: #4f91bf;
+  --color-brand-green: #5fb660;
+}
+
+@layer base {
+  body {
+    /* Ahora sí reconocerá brand-dark */
+    @apply bg-brand-dark text-white antialiased min-h-screen;
+  }
+}
+
+/* Opcional: Para asegurar que el fondo sea siempre oscuro incluso antes de cargar Tailwind */
+html {
+  background-color: #071f2d;
+}

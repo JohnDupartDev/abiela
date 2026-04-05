@@ -1,0 +1,89 @@
+---
+// src/components/BrandsExpertTypography.astro
+---
+
+<section class="w-full bg-brand-dark pt-16   overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+    
+    <div class="w-full lg:w-72 shrink-0 flex flex-col items-center lg:items-start text-center lg:text-left space-y-4">
+      <p class="text-gray-400 text-xs md:text-sm font-light leading-relaxed max-w-xs uppercase">
+        Repuestos originales y soporte técnico garantizado con las marcas líderes del mercado.
+      </p>
+    </div>
+
+    <div class="relative w-full flex-1 overflow-hidden py-6">
+      
+      <div class="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-brand-dark via-brand-dark/80 to-transparent z-10 pointer-events-none"></div>
+
+      <div class="flex group">
+        <div class="flex animate-marquee-pro whitespace-nowrap items-center">
+          {[1, 2].map(() => (
+            <div class="flex items-center gap-4 md:gap-6 pr-4 md:pr-6">
+              
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-brand-blue/20 hover:border-brand-blue/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">SHIMANO</span>
+              </div>
+
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-red-600/20 hover:border-red-500/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">SRAM</span>
+              </div>
+
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-orange-500/20 hover:border-orange-500/40 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">HUYSER</span>
+              </div>
+                            <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-orange-500/20 hover:border-orange-500/40 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">GW BICYCLES</span>
+              </div>
+
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-brand-green/20 hover:border-brand-green/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">SPECIALIZED</span>
+              </div>
+
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-brand-blue/20 hover:border-brand-blue/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">ROCKSHOX</span>
+              </div>
+
+               <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-orange-500/20 hover:border-orange-500/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-[#FF6600] transition-all uppercase tracking-tighter">MAXXIS</span>
+              </div>
+
+              <div class="flex items-center justify-center bg-white/5 border border-white/10 w-36 md:w-52 h-16 md:h-20 rounded-2xl backdrop-blur-sm hover:bg-brand-blue/20 hover:border-brand-blue/50 transition-all duration-500 group/item shrink-0">
+                <span class="text-lg md:text-2xl font-black text-white/30 italic group-hover/item:text-white transition-all uppercase tracking-tighter">TREK</span>
+              </div>
+
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-marquee-pro {
+    animation: marquee-expert-typo 40s linear infinite;
+    display: flex;
+    width: max-content;
+  }
+
+  @keyframes marquee-expert-typo {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .group:hover .animate-marquee-pro {
+    animation-play-state: paused;
+  }
+
+  .animate-marquee-pro {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .animate-marquee-pro {
+      animation-duration: 20s;
+    }
+  }
+</style>

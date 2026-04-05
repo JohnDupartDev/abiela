@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+---
+
+<Layout title="Tu Carrito de Rendimiento | Abiela">
+    <main class="pt-32 pb-20 px-6 md:px-12 max-w-screen-2xl mx-auto min-h-screen relative overflow-hidden bg-brand-dark text-white selection:bg-brand-blue/30">
+        
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/15 blur-[120px] -z-10 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-green/10 blur-[120px] -z-10 opacity-50 pointer-events-none"></div>
+
+        <header class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-black italic uppercase tracking-tight text-white mb-2 leading-none">Tu Carrito de Rendimiento</h1>
+            <p id="page-cart-count" class="text-gray-500 font-bold tracking-widest text-[10px] uppercase border-l-2 border-brand-blue pl-4">
+                0 ARTÍCULOS SELECCIONADOS PARA TU ECOSISTEMA ABIELA
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
+            <div class="lg:col-span-8 space-y-6" id="cart-page-items">
+                <div class="py-20 text-center bg-white/[0.02] rounded-[3rem] border border-white/5">
+                    <p class="text-gray-600 italic uppercase tracking-widest text-xs animate-pulse">Sincronizando componentes del carrito...</p>
+                </div>
+            </div>
+
+            <aside class="lg:col-span-4 sticky top-32">
+                <div class="bg-white/[0.03] backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-10 border border-white/10 shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-24 -right-24 w-48 h-48 bg-brand-blue/20 blur-[80px]"></div>
+                    
+                    <h2 class="text-2xl font-black italic uppercase text-white mb-10 leading-none">Resumen de Orden</h2>
+                    
+                    <div class="space-y-6 mb-12">
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500 uppercase text-[10px] tracking-widest font-black text-xs">Subtotal Bruto</span>
+                            <span id="page-subtotal" class="font-black text-white text-lg">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-500 uppercase text-[10px] tracking-widest font-black text-xs">Envío </span>
+                            <span class="font-black text-brand-green uppercase text-[10px] tracking-widest italic underline decoration-brand-green/30 underline-offset-4">Disponible</span>
+                        </div>
+                        <div class="h-[1px] bg-white/10 w-full"></div>
+                        <div class="flex justify-between items-end">
+                            <span class="text-white font-black italic text-lg uppercase leading-none">Total Final</span>
+                            <div class="text-right">
+                                <div id="page-total" class="text-4xl md:text-5xl font-black text-brand-green tracking-tighter leading-none mb-1">$0</div>
+                                <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">COP | Pago Seguro Abiela</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="checkout-whatsapp" class="w-full bg-brand-green text-brand-dark py-6 rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-[0_20px_50px_rgba(95,182,96,0.2)] active:scale-95 hover:bg-white transition-all duration-500 flex items-center justify-center gap-3">
+                        <Icon name="lucide:message-circle" class="size-5" />
+                        Finalizar por WhatsApp
+                    </button>
+
+                    <div class="flex items-center justify-center gap-3 mt-8 opacity-40">
+                        <Icon name="lucide:shield-check" class="size-4 text-gray-400" />
+                        <span class="text-[9px] text-gray-400 uppercase font-black tracking-widest text-center leading-tight">Sin registro - Pedido Directo</span>
+                    </div>
+                </div>
+
+                
+            </aside>
+        </div>
+
+        <div class="pt-16 flex justify-center md:justify-start">
+            <a href="/tienda" class="group flex items-center gap-3 text-gray-600 hover:text-brand-green transition-all font-black uppercase tracking-widest text-[11px] italic">
+                <Icon name="lucide:arrow-left" class="size-4 group-hover:-translate-x-2 transition-transform" />
+                Continuar Comprando
+            </a>
+        </div>
+    </main>
+</Layout>
+
+<script>
+    import { cartItems, removeFromCart } from '../store/cartStore';
+
+    function renderPageCart() {
+        const container = document.getElementById('cart-page-items');
+        const countLabel = document.getElementById('page-cart-count');
+        const subtotalEl = document.getElementById('page-subtotal');
+        const totalEl = document.getElementById('page-total');
+        const items = cartItems.get();
+
+        if (!container) return;
+
+        const totalQty = items.reduce((acc, i) => acc + i.quantity, 0);
+        if (countLabel) countLabel.textContent = `${totalQty} ARTÍCULOS SELECCIONADOS PARA TU ECOSISTEMA ABIELA`;
+
+        if (items.length === 0) {
+            container.innerHTML = `
+                <div class="py-24 text-center bg-white/[0.01] rounded-[3rem] border border-dashed border-white/10">
+                    <p class="text-gray-500 italic uppercase tracking-widest text-sm mb-8 font-light italic">Tu garaje de rendimiento está vacío</p>
+                    <a href="/tienda" class="inline-block bg-white text-brand-dark px-12 py-4 rounded-full font-black uppercase text-[10px] tracking-[0.2em] hover:bg-brand-green transition-all shadow-xl">Ver Catálogo 2026</a>
+                </div>
+            `;
+            if (subtotalEl) subtotalEl.textContent = "$0";
+            if (totalEl) totalEl.textContent = "$0";
+            return;
+        }
+
+        container.innerHTML = items.map(item => {
+            // LÓGICA DE IMAGEN: Extrae la ruta correcta del store (compatible con variants y main image)
+            const itemImage = item.img || item.image || '/images/default-bike.jpg';
+
+            return `
+            <div class="group relative bg-white/[0.01] backdrop-blur-md rounded-[2.5rem] p-6 md:p-8 flex flex-col md:flex-row gap-8 md:gap-12 items-center border border-white/5 hover:border-brand-blue/10 transition-all duration-700">
+                
+                <div class="w-full md:w-56 h-56 rounded-[2rem] overflow-hidden bg-white/5 flex-shrink-0 flex items-center justify-center border border-white/5">
+                    <img 
+                        alt="${item.name}" 
+                        class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" 
+                        src="${itemImage}"
+                        onerror="this.src='/images/default-bike.jpg'"
+                    />
+                </div>
+                
+                <div class="flex-grow w-full py-2">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <h3 class="text-xl md:text-3xl font-black text-white italic uppercase leading-none mb-3">${item.name}</h3>
+                            <div class="flex items-center gap-2">
+                                <span class="size-1.5 rounded-full bg-brand-blue animate-pulse"></span>
+                                <p class="text-brand-blue text-[9px] md:text-[11px] uppercase font-black tracking-widest italic opacity-80 decoration-brand-blue/30 underline underline-offset-4 decoration-1">Configuración Verificada</p>
+                            </div>
+                        </div>
+                        <button class="remove-btn-page size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-500/10 transition-all group/btn" data-name="${item.name}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 text-gray-700 group-hover/btn:text-red-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-8 pt-8 border-t border-white/5">
+                        <div class="flex items-center bg-white/5 rounded-2xl p-2 border border-white/10">
+                            <button class="page-qty-minus size-10 rounded-xl flex items-center justify-center hover:bg-white/10 text-gray-400 hover:text-white transition-all text-xl" data-name="${item.name}">-</button>
+                            <span class="px-8 md:px-10 font-black italic text-xl text-white">${item.quantity}</span>
+                            <button class="page-qty-plus size-10 rounded-xl flex items-center justify-center hover:bg-white/10 text-gray-400 hover:text-white transition-all text-xl" data-name="${item.name}">+</button>
+                        </div>
+                        
+                        <div class="text-right">
+                            <span class="block text-[9px] text-gray-600 uppercase font-black tracking-widest mb-1">Inversión Unidad</span>
+                            <div class="text-brand-green text-3xl md:text-4xl font-black italic tracking-tighter">${item.price}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        // Calcular Totales
+        let totalValue = items.reduce((acc, item) => {
+            const priceNum = parseInt(item.price.replace(/[^0-9]/g, ''));
+            return acc + (priceNum * item.quantity);
+        }, 0);
+
+        const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+        if (subtotalEl) subtotalEl.textContent = formatter.format(totalValue);
+        if (totalEl) totalEl.textContent = formatter.format(totalValue);
+
+        setupPageCartListeners();
+    }
+
+    function setupPageCartListeners() {
+        document.querySelectorAll('.page-qty-plus').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.getAttribute('data-name');
+                const items = cartItems.get();
+                cartItems.set(items.map(i => i.name === name ? { ...i, quantity: i.quantity + 1 } : i));
+            });
+        });
+
+        document.querySelectorAll('.page-qty-minus').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const name = btn.getAttribute('data-name');
+                const items = cartItems.get();
+                const item = items.find(i => i.name === name);
+                if (item && item.quantity > 1) {
+                    cartItems.set(items.map(i => i.name === name ? { ...i, quantity: i.quantity - 1 } : i));
+                }
+            });
+        });
+
+        document.querySelectorAll('.remove-btn-page').forEach(btn => {
+            btn.addEventListener('click', () => {
+                removeFromCart(btn.getAttribute('data-name'));
+            });
+        });
+
+        const whatsappBtn = document.getElementById('checkout-whatsapp');
+        whatsappBtn?.addEventListener('click', () => {
+            const items = cartItems.get();
+            if (items.length === 0) return;
+
+            let message = "Hola Abiela! 🚲 Quiero finalizar mi pedido:%0A%0A";
+            let subtotal = 0;
+
+            items.forEach(i => {
+                message += `• *${i.name}* (x${i.quantity}) - ${i.price}%0A`;
+                subtotal += parseInt(i.price.replace(/[^0-9]/g, '')) * i.quantity;
+            });
+
+            const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 });
+            message += `%0A*Total Final: ${formatter.format(subtotal)}*%0A%0A¿Me podrían confirmar disponibilidad por favor?`;
+
+            window.open(`https://wa.me/573213634801?text=${message}`, '_blank');
+        });
+    }
+
+    cartItems.subscribe(() => renderPageCart());
+    renderPageCart();
+    document.addEventListener('astro:after-swap', renderPageCart);
+</script>
+
+<style>
+    .font-black { font-weight: 900; }
+</style>
