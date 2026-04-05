@@ -1,0 +1,171 @@
+---
+import { Icon } from 'astro-icon/components';
+import CartDrawer from './CartDrawer.astro';
+
+const navLinks = [
+    { name: 'Inicio', path: '/' },
+    { 
+        name: 'E-Bikes', 
+        path: '#',
+        submenu: [
+            { name: 'New-York', path: '/bicicletas-mtb', desc: 'Explora senderos con lo mejor.' },
+            { name: 'Portugal', path: '/bicicletas-ruta', desc: 'Velocidad y rendimiento puro.' },
+            { name: 'Moscow', path: '/e-bikes', desc: 'Movilidad eléctrica inteligente.' },
+            { name: 'Roma', path: '/motos-electricas', desc: 'Potencia urbana sostenible.' }
+        ]
+    },
+    { 
+        name: 'Servicios', 
+        path: '#',
+        submenu: [
+            { name: 'Mantenimiento General', path: '/taller', desc: 'Alistamiento y limpieza.' },
+            { name: 'Servicio Técnico E-Bikes', path: '/taller-electrico', desc: 'Diagnóstico de baterías y motores.' },
+            { name: 'Frenos Hidráulicos', path: '/taller', desc: 'Purga y cambio de pastillas.' },
+            { name: 'Suspensión', path: '/taller', desc: 'Mantenimiento de horquillas.' }
+        ]
+    },
+    { name: 'Contacto', path: '/contacto' },
+];
+---
+
+<header id="navbar" class="fixed top-0 left-0 w-full flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 transition-all duration-500 z-50 py-3 bg-transparent border-b border-white/5">
+    <a href="/" class="flex items-center z-50">
+        <img src="/logo-abiela.svg" alt="Abiela Bikes Logo" class="h-10 md:h-14 lg:h-16 w-auto transition-transform hover:scale-105 object-contain" />
+    </a>
+
+    <nav class="hidden md:flex items-center gap-4 lg:gap-8 text-white font-medium">
+        {navLinks.map((link) => (
+            <div class="relative group py-2">
+                <a href={link.path} class="flex items-center gap-1 hover:text-brand-green transition-colors uppercase italic text-sm tracking-tight">
+                    {link.name}
+                    {link.submenu && <Icon name="lucide:chevron-down" class="size-4 transition-transform group-hover:rotate-180" />}
+                </a>
+                {link.submenu && (
+                    <div class="absolute top-full left-0 w-64 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                        <div class="bg-brand-dark/95 border border-brand-blue/20 rounded-xl p-4 shadow-2xl backdrop-blur-xl">
+                            {link.submenu.map((sub) => (
+                                <a href={sub.path} class="block p-3 rounded-lg hover:bg-brand-blue/10 transition-colors group/sub">
+                                    <p class="text-sm font-bold text-white group-hover/sub:text-brand-green">{sub.name}</p>
+                                    <p class="text-[11px] text-gray-400 leading-tight">{sub.desc}</p>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+        ))}
+    </nav>
+
+    <div class="flex items-center gap-2 md:gap-4">
+        <button id="cart-trigger" class="relative p-2 text-white hover:text-brand-green transition-all z-50 flex items-center justify-center">
+            <Icon name="lucide:shopping-cart" class="size-7" />
+            <div id="global-cart-count" class="absolute -top-1 -right-1 size-5 bg-brand-blue text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-brand-dark hidden animate-bounce">
+                0
+            </div>
+        </button>
+
+        <div class="hidden md:block">
+            <button class="px-6 py-2.5 rounded-full font-semibold text-white bg-brand-blue hover:bg-brand-green transition-all duration-300 shadow-lg shadow-brand-blue/20 uppercase italic text-xs tracking-widest">
+                Agendar Taller
+            </button>
+        </div>
+
+        <button id="btn-open-menu" class="text-white p-2 md:hidden z-50 flex items-center">
+            <Icon name="lucide:menu" class="size-8" />
+        </button>
+    </div>
+
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-brand-dark/98 backdrop-blur-lg flex flex-col md:hidden transition-transform duration-500 -translate-x-full z-[60] overflow-y-auto">
+        <div class="p-6 flex flex-col min-h-full">
+            <div class="flex justify-between items-center mb-8">
+                <img src="/logo-abiela.svg" alt="Logo" class="h-10" />
+                <button id="btn-close-menu" class="text-white p-2"><Icon name="lucide:x" class="size-8" /></button>
+            </div>
+            <div class="flex flex-col gap-4 mb-8">
+                {navLinks.map((link) => (
+                    <div class="mobile-nav-item">
+                        <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                            <a href={link.path} class="text-xl font-bold text-white hover:text-brand-green py-2 transition-colors uppercase italic">{link.name}</a>
+                            {link.submenu && <button class="submenu-trigger p-2 text-brand-blue"><Icon name="lucide:chevron-down" class="size-6" /></button>}
+                        </div>
+                        {link.submenu && (
+                            <div class="submenu-content hidden flex-col gap-3 mt-4 ml-4 border-l border-brand-blue/30 pl-4 overflow-hidden">
+                                {link.submenu.map((sub) => (
+                                    <a href={sub.path} class="group">
+                                        <p class="text-base text-white font-bold">{sub.name}</p>
+                                        <p class="text-xs text-gray-500">{sub.desc}</p>
+                                    </a>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div class="mt-auto pt-6 pb-6">
+                <a href="https://wa.me/573213634801" class="flex items-center justify-center gap-2 w-full bg-brand-green py-4 rounded-xl font-black text-brand-dark uppercase italic tracking-wider transition-all active:scale-95">
+                    WhatsApp Taller
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<CartDrawer />
+
+<script>
+    import { cartItems } from '../store/cartStore';
+
+    const navbar = document.getElementById('navbar');
+    const trigger = document.getElementById('cart-trigger');
+    const overlay = document.getElementById('cart-overlay');
+    const aside = document.getElementById('cart-aside');
+    const globalCount = document.getElementById('global-cart-count');
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    const btnOpenMenu = document.getElementById('btn-open-menu');
+    const btnCloseMenu = document.getElementById('btn-close-menu');
+    const submenuTriggers = document.querySelectorAll('.submenu-trigger');
+
+    // Abrir Carrito
+    trigger?.addEventListener('click', () => {
+        overlay?.classList.remove('opacity-0', 'pointer-events-none');
+        aside?.classList.remove('translate-x-full');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Contador del Header (Sincronización siempre viva)
+    cartItems.subscribe(items => {
+        const count = items.reduce((acc, i) => acc + i.quantity, 0);
+        if(globalCount) {
+            globalCount.innerText = count.toString();
+            globalCount.classList.toggle('hidden', count === 0);
+        }
+    });
+
+    // Navbar Scroll
+    window.addEventListener('scroll', () => {
+        if (!navbar) return;
+        const isScrolled = window.scrollY > 20;
+        navbar.classList.toggle('bg-brand-dark/90', isScrolled);
+        navbar.classList.toggle('backdrop-blur-md', isScrolled);
+        navbar.classList.toggle('py-2', isScrolled);
+        navbar.classList.toggle('border-brand-blue/30', isScrolled);
+    });
+
+    // Mobile Menu Triggers
+    btnOpenMenu?.addEventListener('click', () => mobileMenu?.classList.remove('-translate-x-full'));
+    btnCloseMenu?.addEventListener('click', () => mobileMenu?.classList.add('-translate-x-full'));
+
+    submenuTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const content = trigger.closest('.mobile-nav-item')?.querySelector('.submenu-content');
+            content?.classList.toggle('hidden');
+            trigger.querySelector('svg')?.classList.toggle('rotate-180');
+        });
+    });
+</script>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

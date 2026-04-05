@@ -1,0 +1,322 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+import { eBikes } from '../../data/products.js';
+
+export async function getStaticPaths() {
+  return eBikes.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props;
+
+if (!product) {
+  throw new Error('Producto no encontrado');
+}
+
+// 1. VALIDACIÓN DEFENSIVA Y DATOS SEGUROS
+const variants = product.variants || [];
+const gallery = product.gallery || [];
+const specs = (product.specs || {}) as any;
+
+// 2. NORMALIZACIÓN DE RUTAS
+const normalize = (path: string) => {
+    if (!path) return "";
+    const cleanPath = path.trim().replace('.jpgg', '.jpg');
+    return cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+};
+
+const mainImgNormalized = normalize(product.image);
+
+// 3. CONSTRUCCIÓN DE MINIATURAS BASADA ESTRICTAMENTE EN VARIANTES
+const variantThumbnails = variants.map(v => normalize(v.img)).filter(Boolean);
+const uniqueThumbnails = [...new Set(variantThumbnails)];
+const finalThumbnails = uniqueThumbnails.length > 0 ? uniqueThumbnails : [mainImgNormalized];
+
+// 4. LÓGICA PARA GARANTIZAR SIEMPRE 4 PRODUCTOS RELACIONADOS
+const otherProducts = eBikes.filter(item => item.slug !== product.slug);
+const sameCategory = otherProducts.filter(item => item.category === product.category);
+const differentCategory = otherProducts.filter(item => item.category !== product.category);
+const related = [...sameCategory, ...differentCategory].slice(0, 4);
+---
+
+<Layout title={`${product.name} | Abiela Elite Mobility`} description={product.seoDesc}>
+    <main class="pt-28 pb-24 px-6 md:px-12 max-w-6xl mx-auto bg-brand-dark text-white selection:bg-brand-blue/30">
+        
+        <div class="mb-8 border-b border-white/5 pb-6 flex flex-col md:flex-row justify-between items-end gap-4">
+            <div class="max-w-2xl">
+                <span class="text-brand-green font-black tracking-[0.3em] text-[9px] uppercase italic mb-1 block animate-fade-in">
+                    {product.tag || 'Elite Mobility'} — Edition 2026
+                </span>
+                <h1 class="text-3xl md:text-4xl font-black italic uppercase tracking-tighter leading-none">
+                    {product.name}
+                </h1>
+            </div>
+            <div class="hidden md:block text-right">
+                <div class="flex items-center gap-2 justify-end mb-1">
+                    <span class={`size-1.5 rounded-full shadow-[0_0_6px] ${product.inStock ? 'bg-brand-green shadow-brand-green' : 'bg-red-500 shadow-red-500'}`}></span>
+                    <span class="text-[10px] font-black uppercase italic tracking-widest text-gray-400">
+                        {product.stockLocation || 'Consultar Disponibilidad'}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-24">
+            
+            <div class="lg:col-span-7 flex flex-col gap-5">
+                <div id="image-zoom-container" class="relative aspect-square rounded-[2rem] bg-white/[0.02] border border-white/5 flex items-center justify-center overflow-hidden backdrop-blur-3xl shadow-2xl group cursor-zoom-in">
+                    <div class="absolute inset-0 bg-brand-blue/5 blur-[80px] -z-10 group-hover:bg-brand-blue/10 transition-colors duration-1000"></div>
+                    
+                    <img 
+                        id="main-product-image"
+                        src={mainImgNormalized} 
+                        alt={product.fullName} 
+                        class="w-full h-full object-cover p-4 rounded-4xl pointer-events-none will-change-transform transition-opacity duration-300"
+                    />
+
+                    <div class="absolute bottom-6 left-6 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-lg border border-white/5 flex items-center gap-2">
+                        <Icon name="lucide:shield-check" class="size-3 text-brand-blue" />
+                        <span id="current-variant-label" class="text-[8px] font-black uppercase tracking-widest text-white italic">
+                            {variants.length > 0 ? variants[0].name : 'Original Series'}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-5 gap-3 max-w-sm">
+                    {finalThumbnails.map((img) => (
+                        <button 
+                            class="thumb-btn rounded-xl aspect-square bg-white/5 border border-white/10 overflow-hidden transition-all hover:scale-105 opacity-50 hover:opacity-100" 
+                            data-img={img}
+                        >
+                            <img src={img} class="w-full h-full object-cover  pointer-events-none" alt="Thumbnail" />
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 flex flex-col">
+                <div class="bg-white/[0.02] p-6 md:p-8 rounded-[2rem] border border-white/5 backdrop-blur-xl shadow-2xl sticky top-24">
+                    
+                    <p class="text-gray-400 text-sm mb-8 font-light italic leading-relaxed">
+                        {product.description}
+                    </p>
+
+                    {variants.length > 0 && (
+                        <div class="mb-8 p-5 bg-white/[0.03] rounded-2xl border border-white/5">
+                            <span class="block text-[9px] uppercase tracking-[0.2em] font-black text-brand-blue mb-4 italic">Selecciona el Color</span>
+                            <div class="flex flex-wrap gap-3">
+                                {variants.map((v) => (
+                                    <button 
+                                        class="color-variant-btn size-6 rounded-full border-2 border-white/10 transition-all hover:scale-110 active:scale-95 hover:border-brand-blue"
+                                        style={`background-color: ${v.hex}`}
+                                        data-variant-img={normalize(v.img)}
+                                        data-variant-name={v.name}
+                                        title={v.name}
+                                    />
+                                ))}
+                            </div>
+                            <p id="active-color-name" class="mt-3 text-[9px] text-gray-500 font-bold uppercase tracking-widest italic">
+                                {variants[0].name}
+                            </p>
+                        </div>
+                    )}
+
+                    <div class="flex items-baseline gap-2 mb-8">
+                        <span class="text-3xl font-black italic tracking-tighter text-brand-green leading-none">{product.price}</span>
+                        <span class="text-gray-600 text-[10px] font-bold uppercase tracking-widest italic">COP</span>
+                    </div>
+
+                    {product.inStock ? (
+                        <button class="add-to-cart-btn w-full bg-brand-green text-brand-dark py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] shadow-xl hover:bg-white transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <Icon name="lucide:shopping-bag" class="size-4 stroke-[2.5px]" />
+                            Añadir al Carrito
+                        </button>
+                    ) : (
+                        <button disabled class="w-full bg-gray-800 text-gray-500 py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] cursor-not-allowed flex items-center justify-center gap-2">
+                            <Icon name="lucide:slash" class="size-4 stroke-[2.5px]" />
+                            No Disponible
+                        </button>
+                    )}
+
+                    <div class="grid grid-cols-3 gap-2 mt-8">
+                        <div class="bg-white/5 py-3 rounded-xl border border-white/5 text-center">
+                            <Icon name="lucide:zap" class="size-5 text-brand-blue mx-auto mb-1" />
+                            <span class="block text-[12px] font-black italic text-gray-400">{specs.speed || 'N/A'}</span>
+                        </div>
+                        <div class="bg-white/5 py-3 rounded-xl border border-white/5 text-center">
+                            <Icon name="lucide:battery-charging" class="size-5 text-brand-blue mx-auto mb-1" />
+                            <span class="block text-[12px] font-black italic text-gray-400">{specs.autonomy ? specs.autonomy.split(' ')[0] : 'N/A'}km</span>
+                        </div>
+                        <div class="bg-white/5 py-3 rounded-xl border border-white/5 text-center">
+                            <Icon name="lucide:cpu" class="size-5 text-brand-blue mx-auto mb-1" />
+                            <span class="block text-[12px] font-black italic text-gray-400">{specs.battery ? specs.battery.split(' ')[0] : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-24">
+            <h2 class="text-2xl font-black italic uppercase tracking-tighter text-center mb-12">
+                Ingeniería de <span class="text-brand-blue font-outline-1">Alta Precisión</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+                <div class="md:col-span-2 bg-white/[0.01] border border-white/10 rounded-[2rem] p-8">
+                    <Icon name="lucide:shield-check" class="size-8 text-brand-green mb-4" />
+                    <h4 class="text-xl font-black italic uppercase mb-2">Seguridad</h4>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">{specs.brakes || 'N/A'}</p>
+                </div>
+                <div class="bg-[#0b0b0b] border border-white/10 rounded-[2rem] p-8 flex flex-col justify-between">
+                    <Icon name="lucide:settings-2" class="size-6 text-brand-blue" />
+                    <p class="text-[9px] text-gray-500 italic uppercase tracking-widest">{specs.extras || 'N/A'}</p>
+                </div>
+                <div class="bg-white/[0.01] border border-white/10 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center">
+                    <Icon name="lucide:disc" class="size-8 text-brand-green mb-3" />
+                    <h4 class="text-sm font-black italic uppercase leading-none">{specs.rines || 'N/A'}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-10">
+            <h2 class="text-xl font-black italic uppercase tracking-tighter mb-8">
+                Línea <span class="text-brand-blue font-outline-1">Relacionada</span>
+            </h2>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                {related.map(rel => (
+                    <a href={`/productos/${rel.slug}`} class="group bg-white/[0.01] border border-white/5 rounded-2xl p-4 hover:bg-white/[0.03] transition-all hover:scale-[1.02] flex flex-col h-full">
+                        <div class="aspect-square mb-4 overflow-hidden rounded-xl bg-white/5">
+                           <img src={normalize(rel.image)} alt={rel.name} class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-700" />
+                        </div>
+                        <h3 class="text-xs font-black italic uppercase mb-1 leading-none">{rel.name}</h3>
+                        <p class="text-brand-green text-[10px] font-bold italic mt-auto">{rel.price}</p>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<script>
+    function setupProductDetail() {
+        const mainImage = document.getElementById('main-product-image') as HTMLImageElement;
+        const zoomContainer = document.getElementById('image-zoom-container') as HTMLElement;
+        const colorBtns = document.querySelectorAll('.color-variant-btn');
+        const thumbBtns = document.querySelectorAll('.thumb-btn');
+        const colorLabel = document.getElementById('active-color-name');
+        const variantBadge = document.getElementById('current-variant-label');
+
+        if (!mainImage || !zoomContainer) return;
+
+        // ZOOM FLUIDO
+        zoomContainer.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = zoomContainer.getBoundingClientRect();
+            const x = ((e.pageX - left - window.scrollX) / width) * 100;
+            const y = ((e.pageY - top - window.scrollY) / height) * 100;
+            mainImage.style.transformOrigin = `${x}% ${y}%`;
+            mainImage.style.transform = "scale(2.2)";
+        });
+
+        zoomContainer.addEventListener('mouseleave', () => {
+            mainImage.style.transform = "scale(1)";
+            mainImage.style.transformOrigin = "center center";
+        });
+
+        const updateImage = (newSrc: string | null, name?: string | null) => {
+            if (!newSrc) return;
+            const normalized = newSrc.startsWith('/') ? newSrc : `/${newSrc}`;
+            if (mainImage.getAttribute('src') === normalized) return;
+
+            mainImage.style.opacity = '0';
+            setTimeout(() => {
+                mainImage.setAttribute('src', normalized);
+                mainImage.onload = () => { mainImage.style.opacity = '1'; };
+                if (name) {
+                    if (colorLabel) colorLabel.textContent = name;
+                    if (variantBadge) variantBadge.textContent = name;
+                }
+            }, 200);
+        };
+
+        // Lógica de Variantes con Sincronización de Thumbnails
+        colorBtns.forEach((btn, index) => {
+            const el = btn as HTMLElement;
+            if (index === 0) el.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+
+            el.addEventListener('click', () => {
+                const img = el.getAttribute('data-variant-img');
+                const name = el.getAttribute('data-variant-name');
+                updateImage(img, name);
+                
+                colorBtns.forEach(b => (b as HTMLElement).classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
+                el.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+
+                // Sincronizar Thumbnail correspondiente
+                thumbBtns.forEach(t => {
+                    const thumbEl = t as HTMLElement;
+                    if (thumbEl.getAttribute('data-img') === img) {
+                        thumbBtns.forEach(tb => (tb as HTMLElement).classList.replace('opacity-100', 'opacity-50'));
+                        thumbEl.classList.replace('opacity-50', 'opacity-100');
+                    }
+                });
+            });
+        });
+
+        // Lógica de Thumbnails con Sincronización de Círculos
+        thumbBtns.forEach((btn, index) => {
+            const el = btn as HTMLElement;
+            if (index === 0) el.classList.add('opacity-100'); else el.classList.add('opacity-50');
+
+            el.addEventListener('click', () => {
+                const imgUrl = el.getAttribute('data-img');
+                updateImage(imgUrl);
+
+                thumbBtns.forEach(b => (b as HTMLElement).classList.replace('opacity-100', 'opacity-50'));
+                el.classList.replace('opacity-50', 'opacity-100');
+
+                // Sincronizar Círculo correspondiente
+                colorBtns.forEach(cb => {
+                    const colorEl = cb as HTMLElement;
+                    if (colorEl.getAttribute('data-variant-img') === imgUrl) {
+                        colorBtns.forEach(b => (b as HTMLElement).classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
+                        colorEl.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+                    }
+                });
+            });
+        });
+    }
+
+    setupProductDetail();
+    document.addEventListener('astro:after-swap', setupProductDetail);
+</script>
+
+<style>
+    .italic { font-style: italic; }
+    
+    #main-product-image {
+        transition: opacity 0.3s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
+        cursor: crosshair;
+    }
+
+    #image-zoom-container:hover #main-product-image {
+        transition: opacity 0.3s ease, transform 0s;
+    }
+
+    .thumb-btn { border: 1px solid rgba(255,255,255,0.05); transition: all 0.3s ease; }
+    
+    .font-outline-1 {
+        -webkit-text-stroke: 0.5px rgba(0, 119, 255, 0.4);
+        color: transparent;
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

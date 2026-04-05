@@ -1,0 +1,92 @@
+---
+// src/components/ConversionExpert.astro
+---
+
+<section class="py-24 relative overflow-hidden bg-brand-dark text-white">
+    <div class="absolute inset-0  pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-8 relative z-10">
+        <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-20 border border-white/10 flex flex-col md:flex-row gap-12 items-center shadow-2xl transition-all hover:border-brand-green/30 group">
+            
+            <div class="flex-1 space-y-8">
+                <div class="space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-tight">
+                        Taller Especializado en <span class="text-brand-green">E-Bikes</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg leading-relaxed font-light">
+                        ¿Tu bicicleta eléctrica no responde como antes? En Abiela somos expertos en la mecánica del futuro. Diagnosticamos y reparamos motores, sistemas eléctricos y baterías para que recuperes toda la potencia de tu E-bike en Zipaquirá.
+                    </p>
+                </div>
+
+                <ul class="grid grid-cols-1 gap-4">
+                    <li class="flex items-center gap-3 text-white group">
+                        <div class="bg-brand-green/20 p-2 rounded-full group-hover:bg-brand-green/40 transition-colors">
+                            <span class="material-symbols-outlined text-brand-green block">battery_charging_full</span>
+                        </div>
+                        <span class="font-medium text-base">Diagnóstico y reparación de packs de baterías de litio</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-white group">
+                        <div class="bg-brand-green/20 p-2 rounded-full group-hover:bg-brand-green/40 transition-colors">
+                            <span class="material-symbols-outlined text-brand-green block">bolt</span>
+                        </div>
+                        <span class="font-medium text-base">Mantenimiento preventivo de motores eléctricos (Bosch, Shimano, Bafang)</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-white group">
+                        <div class="bg-brand-green/20 p-2 rounded-full group-hover:bg-brand-green/40 transition-colors">
+                            <span class="material-symbols-outlined text-brand-green block">settings_input_composite</span>
+                        </div>
+                        <span class="font-medium text-base">Actualización de software y configuración de controladoras</span>
+                    </li>
+                </ul>
+
+                <button class="group relative overflow-hidden bg-brand-green text-brand-dark px-10 py-4 rounded-full font-bold uppercase italic tracking-wider transition-all hover:bg-white hover:scale-105 active:scale-95 shadow-lg shadow-brand-green/20">
+                    Agendar Revisión Técnica
+                </button>
+            </div>
+
+            <div class="flex-1 w-full max-w-md md:max-w-none">
+                <div class="relative w-full aspect-square rounded-full overflow-hidden border-8 border-white/5 shadow-[0_0_80px_rgba(95,182,96,0.15)] group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-green/30 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    
+                    <img 
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                        alt="Detalle técnico de motor eléctrico y cableado de precisión de una E-bike en el taller Abiela Bikes Zipaquirá" 
+                        src="/images/mantenimiento-e-bike.jpg" 
+                    />
+                    
+                    <div class="absolute inset-4 border-2 border-dashed border-brand-green/20 rounded-full animate-[spin_25s_linear_infinite] pointer-events-none"></div>
+                    <div class="absolute inset-10 border border-brand-blue/20 rounded-full animate-[spin_15s_linear_reverse_infinite] pointer-events-none"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Configuración esencial de los iconos de Google */
+    .material-symbols-outlined {
+        font-family: 'Material Symbols Outlined';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 28px; /* Un poco más grande para que resalte */
+        line-height: 1;
+        display: inline-block;
+        font-variation-settings: 'FILL' 1; /* Iconos rellenos por defecto */
+    }
+
+    /* Ocultar barra de scroll si fuera necesario */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    /* Animación personalizada para el borde decorativo */
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>

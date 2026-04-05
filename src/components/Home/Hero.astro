@@ -1,0 +1,215 @@
+---
+// src/components/Hero.astro
+const totalSlides = 3;
+const dots = Array.from({ length: totalSlides });
+---
+
+<section class="relative  w-full flex flex-col lg:flex-row items-center justify-center overflow-hidden bg-brand-dark pt-32  px-4 md:px-16 lg:px-24">
+    
+    <div class="absolute inset-0 z-0 opacity-20" aria-hidden="true">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+    </div>
+
+    <div class="relative z-10 w-full lg:w-1/2 flex flex-col items-start text-left animate-fade-in mb-12 lg:mb-0 lg:pr-5">
+        <div class="rainbow relative bg-white/5 overflow-hidden p-px flex items-center justify-center rounded-full mb-6">
+            <div class="flex items-center justify-center gap-3 pl-4 pr-6 py-2 text-white rounded-full font-medium bg-brand-dark/80 backdrop-blur-xl">
+                <div class="relative flex size-3 items-center justify-center">
+                    <span class="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping"></span>
+                    <span class="relative inline-flex size-2 rounded-full bg-brand-green"></span>
+                </div>
+                <span id="badge-text" class="text-[10px] md:text-xs uppercase tracking-widest font-bold text-white">Movilidad Sostenible</span>
+            </div>
+        </div>
+
+      <h1 id="hero-title" class="text-4xl md:text-7xl font-black tracking-tighter leading-[0.9] italic uppercase text-white transition-all duration-500">
+    Bicicletas Eléctricas en<br/>
+    <span class="text-transparent bg-clip-text  pr-2 bg-gradient-to-r from-brand-blue to-brand-green uppercase font-black">
+        Zipaquirá
+    </span>
+</h1>
+
+        <p id="hero-desc" class="text-sm md:text-lg text-gray-400 max-w-lg mt-2 font-light leading-relaxed">
+            Descubre las mejores bicicletas eléctricas en Zipaquirá y transforma tu forma de movilizarte. Apuesta por una movilidad sostenible, económica y ecológica, ideal para recorrer la ciudad con comodidad.
+        </p>
+
+        <div class="relative z-10 flex flex-col sm:flex-row gap-4 mt-10">
+            <button class="bg-brand-green hover:bg-white text-brand-dark px-8 py-3 rounded-full font-bold transition-all duration-300 group flex items-center gap-2">
+                EXPLORAR E-BIKES
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </button>
+            <div class="p-px rounded-full bg-gradient-to-r from-brand-blue to-transparent">
+                <button class="bg-brand-dark/50 backdrop-blur-md px-8 py-4 rounded-full font-bold text-white hover:bg-brand-blue transition-all duration-300">
+                    SERVICIO TÉCNICO
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative z-10 w-full lg:w-1/2 flex flex-col items-center justify-center">
+        
+        <div id="glow" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+        
+        <div class="relative h-[250px] md:h-[450px] w-full flex items-center justify-center  overflow-hidden">
+            
+            <img 
+                id="slider-img"
+                src="/images/e-bike-new-york.jpg" 
+                alt="Bicicleta eléctrica Abiela Bikes" 
+                class="relative z-20 w-full h-full object-contain animate-float"
+                loading="eager"
+            />
+        </div>
+
+        <div class="flex flex-col items-center gap-6 mt-4 w-full">
+            <div class="flex items-center gap-3 md:gap-5 flex-wrap justify-center">
+                <div class="flex gap-1 bg-white/5 p-1 rounded-full border border-white/10 backdrop-blur-md" role="tablist">
+                    <button id="tab-ebike" role="tab" aria-selected="true" class="px-5 py-2.5 rounded-full text-xs md:text-sm font-bold uppercase transition-all duration-300 bg-brand-green text-brand-dark shadow-lg shadow-brand-green/20" aria-label="Ver categoría de bicicletas eléctricas">E-bikes</button>
+                    <button id="tab-tradicional" role="tab" aria-selected="false" class="px-5 py-2.5 rounded-full text-xs md:text-sm font-bold uppercase transition-all duration-300 text-white/60 hover:text-white" aria-label="Ver categoría de bicicletas tradicionales">Tradicional</button>
+                </div>
+
+                <div class="flex gap-2">
+                    <button id="btn-prev" class="size-11 rounded-full bg-brand-dark/50 border border-white/10 text-white flex items-center justify-center hover:bg-brand-green hover:text-brand-dark transition-all duration-300" aria-label="Ver imagen anterior">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button id="btn-next" class="size-11 rounded-full bg-brand-dark/50 border border-white/10 text-white flex items-center justify-center hover:bg-brand-green hover:text-brand-dark transition-all duration-300" aria-label="Ver siguiente imagen">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex gap-2.5" id="dots-container" aria-hidden="true">
+                {dots.map((_, i) => (
+                    <span class={`dot h-1 rounded-full transition-all duration-500 ${i === 0 ? 'bg-brand-green w-8' : 'bg-white/20 w-2.5'}`} />
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .rainbow::before {
+        content: ''; position: absolute; z-index: -2; left: -50%; top: -50%; width: 200%; height: 200%;
+        background-repeat: no-repeat; background-size: 50% 50%;
+        background-image: conic-gradient(transparent, #4f91bf, #5fb660, transparent);
+        animation: rotate 4s linear infinite;
+    }
+    @keyframes rotate { 100% { transform: rotate(1turn); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+
+    .exit-to-left {
+        animation: exitLeft 0.5s cubic-bezier(0.45, 0, 0.55, 1) forwards;
+    }
+
+    .enter-from-right {
+        animation: enterRight 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes exitLeft {
+        from { transform: translateX(0) scale(1); opacity: 1; filter: blur(0); }
+        to { transform: translateX(-150%) scale(0.8) rotate(-5deg); opacity: 0; filter: blur(10px); }
+    }
+
+    @keyframes enterRight {
+        from { transform: translateX(150%) scale(0.8) rotate(5deg); opacity: 0; filter: blur(10px); }
+        to { transform: translateX(0) scale(1) rotate(0); opacity: 1; filter: blur(0); }
+    }
+</style>
+
+<script>
+    const sliderData = {
+        ebike: {
+            images: [
+                { src: "/images/e-bike-new-york.jpg", alt: "Bicicleta eléctrica Abiela New York" },
+                { src: "/images/e-bike-moscow.jpg", alt: "Moto eléctrica Abiela Moscow" },
+                { src: "/images/e-bike-portugal.jpg", alt: "Bicicleta eléctrica Abiela Portugal" },
+            ],
+            title: 'Bicicletas Eléctricas en <span class="text-transparent bg-clip-text  pr-2 bg-gradient-to-r from-brand-blue to-brand-green uppercase font-black">Zipaquirá</span>',
+            desc: "Descubre las mejores bicicletas eléctricas en Zipaquirá y transforma tu forma de movilizarte. Apuesta por una movilidad sostenible, económica y ecológica, ideal para recorrer la ciudad con comodidad.",
+            badge: "Movilidad Sostenible",
+            glow: "rgba(79,145,191,0.2)"
+        },
+        tradicional: {
+            images: [
+                { src: "/images/mantenimiento-bicicletas-ruta.jpg", alt: "MTB Abiela profesional" },
+                { src: "/images/bici-2.png", alt: "Ruta aerodinámica" },
+                { src: "/images/bici-3.png", alt: "MTB Tradicional 3" },
+            ],
+            title: 'Reparación y Mantenimiento de <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-blue uppercase font-black">Bicicletas</span>',
+            desc: "Servicio profesional de reparación y mantenimiento de bicicletas en Zipaquirá: MTB, ruta, downhill. Ajustes, diagnóstico, cambio de repuestos y puesta a punto para que tu bicicleta rinda al máximo.",
+            badge: "Pasión Tradicional",
+            glow: "rgba(95,182,96,0.2)"
+        }
+    };
+
+    let currentCategory: 'ebike' | 'tradicional' = 'ebike';
+    let currentIndex = 0;
+    const TOTAL = 3;
+
+    const imgEl = document.getElementById('slider-img') as HTMLImageElement;
+    const titleEl = document.getElementById('hero-title');
+    const descEl = document.getElementById('hero-desc');
+    const badgeEl = document.getElementById('badge-text');
+    const glowEl = document.getElementById('glow');
+    const dotsEl = document.querySelectorAll('.dot');
+    const tabEbike = document.getElementById('tab-ebike');
+    const tabTradicional = document.getElementById('tab-tradicional');
+
+    function updateSlider() {
+        imgEl.classList.remove('enter-from-right'); 
+        imgEl.classList.add('exit-to-left');
+
+        setTimeout(() => {
+            const data = sliderData[currentCategory];
+            const currentItem = data.images[currentIndex];
+            
+            imgEl.src = currentItem.src;
+            imgEl.alt = currentItem.alt;
+            
+            if(titleEl) titleEl.innerHTML = data.title;
+            if(descEl) descEl.innerHTML = data.desc;
+            if(badgeEl) badgeEl.innerText = data.badge;
+            if(glowEl) glowEl.style.backgroundColor = data.glow;
+
+            dotsEl.forEach((dot, i) => {
+                dot.classList.toggle('bg-brand-green', i === currentIndex);
+                dot.classList.toggle('w-8', i === currentIndex);
+                dot.classList.toggle('bg-white/20', i !== currentIndex);
+                dot.classList.toggle('w-2.5', i !== currentIndex);
+            });
+
+            const active = currentCategory === 'ebike' ? tabEbike : tabTradicional;
+            const inactive = currentCategory === 'ebike' ? tabTradicional : tabEbike;
+            active?.classList.add('bg-brand-green', 'text-brand-dark');
+            active?.setAttribute('aria-selected', 'true');
+            inactive?.classList.remove('bg-brand-green', 'text-brand-dark');
+            inactive?.setAttribute('aria-selected', 'false');
+
+            imgEl.classList.remove('exit-to-left');
+            imgEl.classList.add('enter-from-right');
+
+        }, 500); 
+    }
+
+    document.getElementById('btn-next')?.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % TOTAL;
+        updateSlider();
+    });
+
+    document.getElementById('btn-prev')?.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + TOTAL) % TOTAL;
+        updateSlider();
+    });
+
+    tabEbike?.addEventListener('click', () => {
+        if(currentCategory !== 'ebike') {
+            currentCategory = 'ebike'; currentIndex = 0; updateSlider();
+        }
+    });
+
+    tabTradicional?.addEventListener('click', () => {
+        if(currentCategory !== 'tradicional') {
+            currentCategory = 'tradicional'; currentIndex = 0; updateSlider();
+        }
+    });
+</script>

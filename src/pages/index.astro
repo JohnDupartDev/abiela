@@ -1,5 +1,11 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import ProductCatalog from '@/components/Home/ProductCatalog.astro';
+import BrandsMarquee from '../components/Home/BrandsMarquee.astro';
+import ConversionExpert from '../components/Home/ConversionExpert.astro';
+import Ecosystem from '../components/Home/Ecosystem.astro';
+import EngineeringServices from '../components/Home/EngineeringServices.astro';
+import Hero from '../components/Home/Hero.astro';
+import PromiseSection from '../components/Home/PromiseSection.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -7,5 +13,11 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<Hero />
+	<BrandsMarquee />
+	
+	<EngineeringServices />
+	<PromiseSection />
+	<Ecosystem />
+	<ProductCatalog />
 </Layout>
