@@ -11,21 +11,26 @@ interface Props {
 }
 
 const {
-  title = "Abiela Bikes | Venta y Taller de Bicicletas y Motos Eléctricas en Zipaquirá",
-  description = "Especialistas en E-bikes, motos eléctricas, bicicletas de ruta y MTB. Taller profesional, mantenimiento especializado y venta de repuestos Shimano en Zipaquirá.",
+  title = "Abiela Bikes | Venta Reparación y Mantenimiento de Bicicletas y Bicicletas Eléctricas tipo Scooter en Zipaquirá y Sabana Centro",
+  description = "Especialistas en bicicletas de ruta, MTB, Gravel, Donwhill, E-bikes, motos eléctricas, bicicletas eléctricas. Taller profesional, mantenimiento especializado y venta de repuestos en Zipaquirá.",
   image = "/og-image.jpg",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://abiela.com.co');
 
-// SCHEMA MULTI-NICHE: Bicicletas + Motos Eléctricas + Taller Especializado
+// SCHEMA MULTI-NICHE: Bicicletas + Motos Eléctricas + Taller Especializado + Autoría
 const combinedBusinessSchema = {
   "@context": "https://schema.org",
   "@type": ["BikeShop", "MotorcycleDealer", "AutoRepair"],
   "@id": "https://abiela.com.co/#organization",
   "name": "Abiela Bikes",
   "url": "https://abiela.com.co",
-  "telephone": "+573015360531", // Actualizado al número que me diste
+  "telephone": "+573015360531",
+  "author": {
+    "@type": "Organization",
+    "name": "Zipaquira Digital",
+    "url": "https://zipaquiradigital.com"
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Cra. 19 #13-08",
@@ -58,7 +63,8 @@ const combinedBusinessSchema = {
         "itemListElement": [
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento Integral MTB y Ruta" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicio Técnico para Bicicletas Eléctricas (E-bikes)" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de Motos Eléctricas" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de Motos Eléctricas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sincronización de Cambios y Purga de Frenos" } }
         ]
       },
       {
@@ -89,6 +95,10 @@ const combinedBusinessSchema = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     
+    <meta name="author" content="Zipaquira Digital | https://zipaquiradigital.com" />
+    <meta name="designer" content="Zipaquira Digital" />
+    <meta name="publisher" content="Zipaquira Digital" />
+
     <meta name="keywords" content="motos electricas zipaquira, taller bicicletas electricas, mantenimiento MTB zipaquira, bicicletas de ruta, repuestos bicicletas electricas, e-bike shop colombia, Abiela Bikes" />
 
     <meta name="geo.region" content="CO-CUN" />
@@ -101,6 +111,9 @@ const combinedBusinessSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content="Abiela Bikes" />
+    <meta property="fb:admins" content="abielazipaquirabicicleteria" /> 
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -108,7 +121,6 @@ const combinedBusinessSchema = {
     <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
     <meta name="robots" content="index, follow" />
-    
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Información para IA" />
     
     <script type="application/ld+json" set:html={JSON.stringify(combinedBusinessSchema)} />
