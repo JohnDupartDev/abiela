@@ -40,9 +40,12 @@ const otherProducts = eBikes.filter(item => item.slug !== product.slug);
 const sameCategory = otherProducts.filter(item => item.category === product.category);
 const differentCategory = otherProducts.filter(item => item.category !== product.category);
 const related = [...sameCategory, ...differentCategory].slice(0, 4);
+
+// URL BASE PARA VISTA PREVIA
+const siteUrl = "https://abiela.com.co"; 
 ---
 
-<Layout title={`${product.name} | Abiela Elite Mobility`} description={product.seoDesc}>
+<Layout title={`${product.name} | Abiela Elite Mobility`} description={product.seoDesc} image={mainImgNormalized}>
     <main class="pt-28 pb-24 px-6 md:px-12 max-w-6xl mx-auto bg-brand-dark text-white selection:bg-brand-blue/30">
         
         <div class="mb-8 border-b border-white/5 pb-6 flex flex-col md:flex-row justify-between items-end gap-4">
@@ -130,7 +133,12 @@ const related = [...sameCategory, ...differentCategory].slice(0, 4);
                     </div>
 
                     {product.inStock ? (
-                        <button class="add-to-cart-btn w-full bg-brand-green text-brand-dark py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] shadow-xl hover:bg-white transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <button 
+                            id="buy-whatsapp-btn"
+                            data-product-name={product.name}
+                            data-product-price={product.price}
+                            class="add-to-cart-btn w-full bg-brand-green text-brand-dark py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] shadow-xl hover:bg-white transition-all active:scale-95 flex items-center justify-center gap-2"
+                        >
                             <Icon name="lucide:shopping-bag" class="size-4 stroke-[2.5px]" />
                             Comprar por WhatsApp
                         </button>
@@ -199,90 +207,111 @@ const related = [...sameCategory, ...differentCategory].slice(0, 4);
     </main>
 </Layout>
 
-<script>
+<script define:vars={{ siteUrl }}>
     function setupProductDetail() {
-        const mainImage = document.getElementById('main-product-image') as HTMLImageElement | null;
-        const zoomContainer = document.getElementById('image-zoom-container') as HTMLElement | null;
+        const mainImage = document.getElementById('main-product-image');
+        const zoomContainer = document.getElementById('image-zoom-container');
         const colorBtns = document.querySelectorAll('.color-variant-btn');
         const thumbBtns = document.querySelectorAll('.thumb-btn');
         const colorLabel = document.getElementById('active-color-name');
         const variantBadge = document.getElementById('current-variant-label');
+        const buyBtn = document.getElementById('buy-whatsapp-btn');
+
+        let selectedColor = colorLabel?.textContent?.trim() || 'Original';
 
         if (!mainImage || !zoomContainer) return;
 
+        // ZOOM FLUIDO
         zoomContainer.addEventListener('mousemove', (e) => {
             const rect = zoomContainer.getBoundingClientRect();
             const x = ((e.pageX - rect.left - window.scrollX) / rect.width) * 100;
             const y = ((e.pageY - rect.top - window.scrollY) / rect.height) * 100;
-            if (mainImage) {
-                mainImage.style.transformOrigin = `${x}% ${y}%`;
-                mainImage.style.transform = "scale(2.2)";
-            }
+            mainImage.style.transformOrigin = `${x}% ${y}%`;
+            mainImage.style.transform = "scale(2.2)";
         });
 
         zoomContainer.addEventListener('mouseleave', () => {
-            if (mainImage) {
-                mainImage.style.transform = "scale(1)";
-                mainImage.style.transformOrigin = "center center";
-            }
+            mainImage.style.transform = "scale(1)";
+            mainImage.style.transformOrigin = "center center";
         });
 
-        const updateImage = (newSrc: string | null, name?: string | null) => {
-            if (!newSrc || !mainImage) return;
+        const updateImage = (newSrc, name) => {
+            if (!newSrc) return;
             const normalized = newSrc.startsWith('/') ? newSrc : `/${newSrc}`;
             if (mainImage.getAttribute('src') === normalized) return;
 
             mainImage.style.opacity = '0';
             setTimeout(() => {
-                if (mainImage) {
-                    mainImage.setAttribute('src', normalized);
-                    mainImage.onload = () => { if (mainImage) mainImage.style.opacity = '1'; };
-                }
+                mainImage.setAttribute('src', normalized);
+                mainImage.onload = () => { mainImage.style.opacity = '1'; };
                 if (name) {
+                    selectedColor = name;
                     if (colorLabel) colorLabel.textContent = name;
                     if (variantBadge) variantBadge.textContent = name;
                 }
             }, 200);
         };
 
-        colorBtns.forEach((btn, index) => {
-            const el = btn as HTMLElement;
-            if (index === 0) el.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+        // WHATSAPP CON IMAGEN DINÁMICA
+        buyBtn?.addEventListener('click', () => {
+            const name = buyBtn.getAttribute('data-product-name');
+            const price = buyBtn.getAttribute('data-product-price');
+            const currentImgPath = mainImage.getAttribute('src');
+            const fullImgUrl = `${siteUrl}${currentImgPath}`;
+            const productUrl = window.location.href;
+            
+            const message = `Hola Abiela! 👋 Me interesa comprar este modelo:%0A%0A` +
+                            `*Modelo:* ${name}%0A` +
+                            `*Color:* ${selectedColor}%0A` +
+                            `*Precio:* ${price}%0A%0A` +
+                            `*Imagen de referencia:* ${fullImgUrl}%0A%0A` +
+                            `Link del producto: ${productUrl}`;
+            
+            window.open(`https://wa.me/573015360531?text=${message}`, '_blank');
+        });
 
-            el.addEventListener('click', () => {
-                const img = el.getAttribute('data-variant-img');
-                const name = el.getAttribute('data-variant-name');
+        // SINCRONIZACIÓN COLOR -> MINIATURA
+        colorBtns.forEach((btn, index) => {
+            if (index === 0) btn.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+
+            btn.addEventListener('click', () => {
+                const img = btn.getAttribute('data-variant-img');
+                const name = btn.getAttribute('data-variant-name');
                 updateImage(img, name);
                 
-                colorBtns.forEach(b => (b as HTMLElement).classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
-                el.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+                // Activar Círculo
+                colorBtns.forEach(b => b.classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
+                btn.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
 
+                // Sincronizar Miniatura
                 thumbBtns.forEach(t => {
-                    const thumbEl = t as HTMLElement;
-                    if (thumbEl.getAttribute('data-img') === img) {
-                        thumbBtns.forEach(tb => (tb as HTMLElement).classList.replace('opacity-100', 'opacity-50'));
-                        thumbEl.classList.replace('opacity-50', 'opacity-100');
+                    if (t.getAttribute('data-img') === img) {
+                        thumbBtns.forEach(tb => tb.classList.replace('opacity-100', 'opacity-50'));
+                        t.classList.replace('opacity-50', 'opacity-100');
                     }
                 });
             });
         });
 
+        // SINCRONIZACIÓN MINIATURA -> COLOR
         thumbBtns.forEach((btn, index) => {
-            const el = btn as HTMLElement;
-            if (index === 0) el.classList.add('opacity-100'); else el.classList.add('opacity-50');
+            if (index === 0) btn.classList.add('opacity-100'); else btn.classList.add('opacity-50');
 
-            el.addEventListener('click', () => {
-                const imgUrl = el.getAttribute('data-img');
+            btn.addEventListener('click', () => {
+                const imgUrl = btn.getAttribute('data-img');
                 updateImage(imgUrl);
 
-                thumbBtns.forEach(b => (b as HTMLElement).classList.replace('opacity-100', 'opacity-50'));
-                el.classList.replace('opacity-50', 'opacity-100');
+                // Activar Miniatura
+                thumbBtns.forEach(b => b.classList.replace('opacity-100', 'opacity-50'));
+                btn.classList.replace('opacity-50', 'opacity-100');
 
+                // Sincronizar Círculo de Color
                 colorBtns.forEach(cb => {
-                    const colorEl = cb as HTMLElement;
-                    if (colorEl.getAttribute('data-variant-img') === imgUrl) {
-                        colorBtns.forEach(b => (b as HTMLElement).classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
-                        colorEl.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
+                    if (cb.getAttribute('data-variant-img') === imgUrl) {
+                        const name = cb.getAttribute('data-variant-name');
+                        if (name) selectedColor = name;
+                        colorBtns.forEach(b => b.classList.remove('border-brand-blue', 'ring-4', 'ring-brand-blue/20'));
+                        cb.classList.add('border-brand-blue', 'ring-4', 'ring-brand-blue/20');
                     }
                 });
             });

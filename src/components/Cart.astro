@@ -51,7 +51,9 @@
         overlay?.classList.toggle('opacity-0', !isOpen);
         overlay?.classList.toggle('pointer-events-none', !isOpen);
         aside?.classList.toggle('translate-x-full', !isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        if (document.body) {
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        }
     };
 
     trigger?.addEventListener('click', () => toggle(true));
@@ -60,26 +62,39 @@
 
     // Suscripción ultra-ligera
     cartItems.subscribe(items => {
-        const count = items.reduce((acc, i) => acc + i.quantity, 0);
+        const count = items.reduce((acc: number, i: { quantity: number; }) => acc + i.quantity, 0);
         if(globalCount) {
             globalCount.innerText = count.toString();
-            globalCount.classList.toggle('hidden', count === 0);
+            if (count === 0) {
+                globalCount.classList.add('hidden');
+            } else {
+                globalCount.classList.remove('hidden');
+            }
         }
 
         if (container) {
-            container.innerHTML = items.length ? '' : '<div class="h-full flex items-center justify-center text-gray-600 italic uppercase text-xs">Carrito vacío</div>';
+            if (items.length === 0) {
+                container.innerHTML = '<div class="h-full flex items-center justify-center text-gray-600 italic uppercase text-xs">Carrito vacío</div>';
+            } else {
+                container.innerHTML = '';
+            }
             
             let total = 0;
-            items.forEach(item => {
+            items.forEach((item: { price: string; quantity: number; name: string; image?: string; img?: string; slug?: string; }) => {
                 const subtotal = parseInt(item.price.replace(/\D/g, '')) * item.quantity;
                 total += subtotal;
 
+                const itemImg = item.img || item.image || '/images/default-bike.jpg';
+
                 const el = document.createElement('div');
-                el.className = "bg-white/5 p-4 rounded-xl flex justify-between items-center border border-white/5 group";
+                el.className = "bg-white/5 p-4 rounded-xl flex gap-4 items-center border border-white/5 group";
                 el.innerHTML = `
-                    <div>
-                        <p class="text-white font-bold uppercase text-sm">${item.name}</p>
-                        <p class="text-brand-blue font-black text-xs italic">${item.price} x ${item.quantity}</p>
+                    <div class="size-12 rounded-lg bg-white/5 flex-shrink-0 overflow-hidden border border-white/10">
+                        <img src="${itemImg}" class="w-full h-full object-contain" alt="${item.name}" />
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-white font-bold uppercase text-[11px] leading-tight">${item.name}</p>
+                        <p class="text-brand-blue font-black text-xs italic tracking-tighter">${item.price} x ${item.quantity}</p>
                     </div>
                     <button class="remove-btn p-2 text-white/20 hover:text-red-500 transition-colors" data-id="${item.name}">
                         <span class="material-symbols-outlined text-xl">delete_outline</span>
@@ -90,18 +105,43 @@
 
             if(totalPrice) totalPrice.innerText = `$${total.toLocaleString('es-CO')}`;
             
-            // Event Delegation para borrar (más eficiente que muchos listeners)
+            // Event Delegation para borrar
             container.querySelectorAll('.remove-btn').forEach(b => {
                 b.addEventListener('click', () => removeFromCart(b.getAttribute('data-id')));
             });
         }
     });
 
-    // WhatsApp Dinámico
+    // WhatsApp Dinámico con URLs individuales por producto
     whatsappBtn?.addEventListener('click', () => {
         const items = cartItems.get();
-        const total = totalPrice?.innerText;
-        const text = `¡Hola Abiela Bikes! 🚲\n\nQuiero agendar este pedido:\n${items.map(i => `- ${i.name} (x${i.quantity})`).join('\n')}\n\n*Total: ${total}*\n¿Me confirman disponibilidad?`;
-        window.open(`https://wa.me/573213634801?text=${encodeURIComponent(text)}`, '_blank');
+        if (items.length === 0) return;
+
+        const total = totalPrice?.innerText || "$0";
+        const phoneNumber = "573015360531";
+        const baseUrl = window.location.origin;
+
+        let message = "¡Hola Abiela Bikes! 🚲\n\n";
+        message += "Quiero realizar el siguiente pedido:\n\n";
+        
+        items.forEach((i: { name: string; quantity: number; price: string; slug?: string; }) => {
+            // Construimos la URL individual si el slug existe
+            const productUrl = i.slug ? `${baseUrl}/productos/${i.slug}` : baseUrl;
+            
+            message += `• *${i.name}* (x${i.quantity})\n`;
+            message += `  Precio: ${i.price}\n`;
+            message += `  Link: ${productUrl}\n\n`;
+        });
+        
+        message += `*TOTAL: ${total}*\n\n`;
+        message += "¿Me confirman disponibilidad por favor?";
+        
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
     });
 </script>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

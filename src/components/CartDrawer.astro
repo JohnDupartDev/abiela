@@ -42,7 +42,6 @@ import { Icon } from 'astro-icon/components';
     const totalPrice = document.getElementById('cart-total-price');
     const whatsappBtn = document.getElementById('send-whatsapp');
 
-    // Función global para cerrar
     const closeCart = () => {
         overlay?.classList.add('opacity-0', 'pointer-events-none');
         aside?.classList.add('translate-x-full');
@@ -52,7 +51,6 @@ import { Icon } from 'astro-icon/components';
     closeBtn?.addEventListener('click', closeCart);
     overlay?.addEventListener('click', (e) => e.target === overlay && closeCart());
 
-    // Sincronización con el Store
     cartItems.subscribe(items => {
         if (!container) return;
 
@@ -65,11 +63,10 @@ import { Icon } from 'astro-icon/components';
         container.innerHTML = '';
         let total = 0;
 
-        items.forEach(item => {
+        items.forEach((item: any) => {
             const priceNum = parseInt(item.price.replace(/\D/g, ''));
             total += priceNum * item.quantity;
 
-            // Detectar la imagen (variante o principal)
             const itemImg = item.img || item.image || '/images/default-bike.jpg';
 
             const el = document.createElement('div');
@@ -100,9 +97,31 @@ import { Icon } from 'astro-icon/components';
 
     whatsappBtn?.addEventListener('click', () => {
         const items = cartItems.get();
-        const total = totalPrice?.innerText;
-        const text = `¡Hola Abiela Bikes! 🚲\n\nQuiero agendar este pedido:\n${items.map(i => `- ${i.name} (x${i.quantity})`).join('\n')}\n\n*Total: ${total}*`;
-        window.open(`https://wa.me/573213634801?text=${encodeURIComponent(text)}`, '_blank');
+        if (items.length === 0) return;
+
+        const totalValue = totalPrice?.innerText || "$0";
+        const phoneNumber = "573015360531";
+        
+        // Obtenemos la URL base (sin el slug del producto actual)
+        const baseUrl = window.location.origin;
+
+        let message = "¡Hola Abiela Bikes! 🚲\n\n";
+        message += "Quiero realizar el siguiente pedido:\n\n";
+        
+        items.forEach((i: any) => {
+            // Construimos la URL del producto dinámicamente usando el slug guardado en el item
+            const productUrl = i.slug ? `${baseUrl}/productos/${i.slug}` : baseUrl;
+            
+            message += `• *${i.name}* (x${i.quantity})\n`;
+            message += `  Precio: ${i.price}\n`;
+            message += `  Link: ${productUrl}\n\n`;
+        });
+        
+        message += `*TOTAL ESTIMADO: ${totalValue}*\n\n`;
+        message += "¿Me confirman disponibilidad y métodos de pago?";
+        
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
     });
 </script>
 

@@ -70,7 +70,7 @@ const combinedBusinessSchema = {
   },
   "sameAs": [
     "https://www.facebook.com/abielazipaquirabicicleteria",
-    "https://www.instagram.com/abielazipaquirabicicleteria",
+    "https://www.instagram.com/abielabike/",
     "https://www.youtube.com/@a-bielatiendaytallerbicicl2434"
   ]
 };
@@ -88,9 +88,15 @@ const combinedBusinessSchema = {
     <meta name="keywords" content="motos electricas zipaquira, taller bicicletas electricas, mantenimiento MTB zipaquira, bicicletas de ruta, repuestos bicicletas electricas, e-bike shop colombia, Abiela Bikes" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
     <meta name="robots" content="index, follow" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Información para IA" />

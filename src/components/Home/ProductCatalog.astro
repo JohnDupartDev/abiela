@@ -70,6 +70,7 @@ const products = [
                                 data-name={product.name}
                                 data-price={product.price}
                                 data-img={product.img}
+                                data-slug={product.slug}
                             >
                                 <Icon name="lucide:shopping-cart" class="cart-icon size-4 stroke-[2.5px]" />
                                 <Icon name="lucide:check" class="check-icon hidden size-5 stroke-[3px]" />
@@ -126,31 +127,40 @@ const products = [
         const cartButtons = document.querySelectorAll('.add-to-cart-btn');
 
         cartButtons.forEach((btn) => {
-            if (btn.getAttribute('data-has-listener')) return;
-            btn.setAttribute('data-has-listener', 'true');
+            const buttonElement = btn as HTMLButtonElement;
+            if (buttonElement.getAttribute('data-has-listener')) return;
+            buttonElement.setAttribute('data-has-listener', 'true');
 
-            btn.addEventListener('click', (e) => {
+            buttonElement.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const name = btn.getAttribute('data-name');
-                const price = btn.getAttribute('data-price');
-                const img = btn.getAttribute('data-img');
+                const name = buttonElement.getAttribute('data-name');
+                const price = buttonElement.getAttribute('data-price');
+                const img = buttonElement.getAttribute('data-img');
+                const slug = buttonElement.getAttribute('data-slug');
 
                 if (name && price && img) {
-                    addToCart({ name, price, image: img });
+                    // 🔥 SINCRONIZACIÓN TOTAL: Mandamos img y slug al store
+                    addToCart({ 
+                        name, 
+                        price, 
+                        img, 
+                        slug: slug || '' 
+                    });
+                    
                     showNotification(name, img);
 
-                    const cartIcon = btn.querySelector('.cart-icon');
-                    const checkIcon = btn.querySelector('.check-icon');
+                    const cartIcon = buttonElement.querySelector('.cart-icon');
+                    const checkIcon = buttonElement.querySelector('.check-icon');
 
                     if (cartIcon && checkIcon) {
-                        btn.classList.add('btn-success');
+                        buttonElement.classList.add('btn-success');
                         cartIcon.classList.add('hidden');
                         checkIcon.classList.remove('hidden');
                         
                         setTimeout(() => {
-                            btn.classList.remove('btn-success');
+                            buttonElement.classList.remove('btn-success');
                             cartIcon.classList.remove('hidden');
                             checkIcon.classList.add('hidden');
                         }, 1500);
