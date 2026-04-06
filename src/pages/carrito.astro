@@ -85,7 +85,7 @@ import { Icon } from 'astro-icon/components';
 
         if (!container) return;
 
-        const totalQty = items.reduce((acc, i) => acc + i.quantity, 0);
+        const totalQty = items.reduce((acc: any, i: { quantity: any; }) => acc + i.quantity, 0);
         if (countLabel) countLabel.textContent = `${totalQty} ARTÍCULOS SELECCIONADOS PARA TU ECOSISTEMA ABIELA`;
 
         if (items.length === 0) {
@@ -100,7 +100,7 @@ import { Icon } from 'astro-icon/components';
             return;
         }
 
-        container.innerHTML = items.map(item => {
+        container.innerHTML = items.map((item: { img: any; image: any; name: any; quantity: any; price: any; }) => {
             // LÓGICA DE IMAGEN: Extrae la ruta correcta del store (compatible con variants y main image)
             const itemImage = item.img || item.image || '/images/default-bike.jpg';
 
@@ -147,7 +147,7 @@ import { Icon } from 'astro-icon/components';
         }).join('');
 
         // Calcular Totales
-        let totalValue = items.reduce((acc, item) => {
+        let totalValue = items.reduce((acc: number, item: { price: string; quantity: number; }) => {
             const priceNum = parseInt(item.price.replace(/[^0-9]/g, ''));
             return acc + (priceNum * item.quantity);
         }, 0);
@@ -164,7 +164,7 @@ import { Icon } from 'astro-icon/components';
             btn.addEventListener('click', () => {
                 const name = btn.getAttribute('data-name');
                 const items = cartItems.get();
-                cartItems.set(items.map(i => i.name === name ? { ...i, quantity: i.quantity + 1 } : i));
+                cartItems.set(items.map((i: { name: string | null; quantity: number; }) => i.name === name ? { ...i, quantity: i.quantity + 1 } : i));
             });
         });
 
@@ -172,9 +172,9 @@ import { Icon } from 'astro-icon/components';
             btn.addEventListener('click', () => {
                 const name = btn.getAttribute('data-name');
                 const items = cartItems.get();
-                const item = items.find(i => i.name === name);
+                const item = items.find((i: { name: string | null; }) => i.name === name);
                 if (item && item.quantity > 1) {
-                    cartItems.set(items.map(i => i.name === name ? { ...i, quantity: i.quantity - 1 } : i));
+                    cartItems.set(items.map((i: { name: string | null; quantity: number; }) => i.name === name ? { ...i, quantity: i.quantity - 1 } : i));
                 }
             });
         });
@@ -193,7 +193,7 @@ import { Icon } from 'astro-icon/components';
             let message = "Hola Abiela! 🚲 Quiero finalizar mi pedido:%0A%0A";
             let subtotal = 0;
 
-            items.forEach(i => {
+            items.forEach((i: { name: any; quantity: number; price: string; }) => {
                 message += `• *${i.name}* (x${i.quantity}) - ${i.price}%0A`;
                 subtotal += parseInt(i.price.replace(/[^0-9]/g, '')) * i.quantity;
             });
