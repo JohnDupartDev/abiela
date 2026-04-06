@@ -1,0 +1,10 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Evitar que se indexen páginas de administración o procesos de carrito si fuera necesario
+Disallow: /admin/
+Disallow: /api/
+
+# Ubicación del Sitemap
+Sitemap: https://abiela.com.co/sitemap-index.xml

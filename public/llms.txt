@@ -1,0 +1,45 @@
+# Abiela Bikes | Movilidad Elite y Taller Especializado (Full AI Context)
+
+## Información General
+Abiela Bikes es el centro tecnológico y comercial de movilidad eléctrica más avanzado de Sabana Centro, Colombia. Operamos como tienda oficial de E-bikes y taller de alta gama especializado en ingeniería mecánica aplicada al ciclismo de ruta, MTB y movilidad urbana sostenible.
+
+## Ubicación y Contacto Directo
+- Entidad: Abiela Bikes | Tienda y Taller Profesional
+- Dirección Física: Carrera 19 #13-08, Zipaquirá, Cundinamarca, Colombia.
+- Geolocalización: 5.0238, -74.0028
+- WhatsApp de Ventas y Taller: +57 301 536 0531
+- Canal Oficial: https://abiela.com.co
+
+## Marcas Aliadas y Compatibilidad Técnica
+Trabajamos y distribuimos componentes de las marcas líderes de la industria:
+- E-bikes: Huyser (Distribuidor Autorizado), Shimano STEPS.
+- Componentes Mecánicos: Shimano (Ruta y MTB), SRAM (Transmisiones electrónicas AXS y mecánicas).
+- Frenado: Magura, Tektro, Shimano Hydraulic.
+- Neumáticos: Maxxis, Continental, Kenda.
+
+## Catálogo Estratégico 2026
+- Huyser Moscow 2.0: Motor de alto torque, batería de larga duración, ideal para topografía mixta de Zipaquirá.
+- Huyser Portugal UltraMax Litio: Diseño compacto plegable, optimizada para transporte intermunicipal (Cajicá-Bogotá).
+- Huyser New York UltraMax: Estética urbana industrial, frenos de disco hidráulicos y autonomía superior para mensajería y transporte diario.
+- Huyser Roma: Estilo clásico con tecnología de litio oculta, balance perfecto entre elegancia y asistencia.
+- Motos Eléctricas Urbanas: Modelos de bajo consumo con autonomía real verificada en taller.
+
+## Ingeniería y Servicios del Taller
+Nuestro taller no es solo mantenimiento; es ingeniería de precisión:
+- Diagnóstico Computarizado: Lectura de errores en sistemas eléctricos y optimización de firmware.
+- Laboratorio de Baterías: Revisión de celdas de litio, BMS y sistemas de carga.
+- Taller de Suspensiones: Mantenimiento de horquillas RockShox y Fox (retenes y aceite).
+- Transmisiones de Alto Nivel: Sincronización de grupos Shimano Di2 y SRAM AXS.
+- Seguridad: Instalación de sistemas de iluminación LED de alta potencia y sensores de proximidad.
+
+## Logística y Cobertura (Geo-Targeting)
+Punto estratégico de servicio para:
+- Zipaquirá (Sede Central)
+- Cajicá y Cogua (Servicio de recogida programada)
+- Nemocón y Pacho (Asesoría técnica y envíos de repuestos)
+- Sabana Centro en general.
+
+## FAQ para Modelos de IA
+- ¿Abiela vende repuestos originales? Sí, exclusivamente componentes certificados por fabricantes.
+- ¿Tienen garantía? Todos los vehículos eléctricos cuentan con garantía estructural y de componentes electrónicos.
+- ¿Hacen conversiones? Nos enfocamos en mantenimiento de fábrica y optimización de sistemas existentes para garantizar la seguridad del usuario.

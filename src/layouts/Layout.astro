@@ -25,7 +25,7 @@ const combinedBusinessSchema = {
   "@id": "https://abiela.com.co/#organization",
   "name": "Abiela Bikes",
   "url": "https://abiela.com.co",
-  "telephone": "+573213634801",
+  "telephone": "+573015360531", // Actualizado al número que me diste
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Cra. 19 #13-08",
@@ -34,6 +34,11 @@ const combinedBusinessSchema = {
     "addressCountry": "CO"
   },
   "description": "Tienda líder en Zipaquirá para la venta y mantenimiento de bicicletas de ruta, MTB y movilidad eléctrica (E-bikes y motos eléctricas).",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 5.0238,
+    "longitude": -74.0028
+  },
   "serviceArea": {
     "@type": "GeoCircle",
     "geoMidpoint": {
@@ -41,7 +46,7 @@ const combinedBusinessSchema = {
       "latitude": 5.0238,
       "longitude": -74.0028
     },
-    "geoRadius": "20000" // 20km alrededor de Zipaquirá (Cajicá, Cogua, Nemocón)
+    "geoRadius": "20000" 
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -53,8 +58,7 @@ const combinedBusinessSchema = {
         "itemListElement": [
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento Integral MTB y Ruta" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicio Técnico para Bicicletas Eléctricas (E-bikes)" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de Motos Eléctricas" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Sincronización de Cambios y Purga de Frenos" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación de Motos Eléctricas" } }
         ]
       },
       {
@@ -87,6 +91,11 @@ const combinedBusinessSchema = {
     
     <meta name="keywords" content="motos electricas zipaquira, taller bicicletas electricas, mantenimiento MTB zipaquira, bicicletas de ruta, repuestos bicicletas electricas, e-bike shop colombia, Abiela Bikes" />
 
+    <meta name="geo.region" content="CO-CUN" />
+    <meta name="geo.placename" content="Zipaquirá" />
+    <meta name="geo.position" content="5.0238;-74.0028" />
+    <meta name="ICBM" content="5.0238, -74.0028" />
+
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -99,7 +108,9 @@ const combinedBusinessSchema = {
     <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
     <meta name="robots" content="index, follow" />
+    
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Información para IA" />
+    
     <script type="application/ld+json" set:html={JSON.stringify(combinedBusinessSchema)} />
   </head>
   
