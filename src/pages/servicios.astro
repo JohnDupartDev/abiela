@@ -1,0 +1,316 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+// Datos Maestros de Servicios
+const traditionalMenu = [
+    { name: "Mantenimiento General Elite", desc: "Desengrase completo, torque digital y ajuste total de componentes", price: "$60.000", icon: "lucide:settings" },
+    { name: "Ajuste y Purga de Frenos", desc: "Frenos hidráulicos con fluido Mineral o DOT 5.1", price: "$45.000", icon: "lucide:droplets" },
+    { name: "Mantenimiento Suspensión", desc: "Cambio de retenes, aceite y sellos Fox / RockShox / Manitou", price: "$120.000", icon: "lucide:wrench" },
+    { name: "Ajuste de Transmisión", desc: "Cambio, descarrilador y tensor - Indexación precisa", price: "$35.000", icon: "lucide:git-branch" },
+    { name: "Lavado Pro + Alistamiento", desc: "Limpieza profunda, cera cerámica y protección UV", price: "$30.000", icon: "lucide:sparkles" },
+    { name: "Centrado y Tensionado de Ruedas", desc: "Alineación profesional y truing", price: "$40.000", icon: "lucide:circle" },
+    { name: "Pintura & Restauración", desc: "Acabado automotriz en horno - Cotizar según modelo", price: "Cotizar", icon: "lucide:paint-bucket" }
+];
+
+const ebikeMenu = [
+    { name: "Mantenimiento General E-bike", desc: "Limpieza interna, sellado y diagnóstico de motor ", price: "$150.000", icon: "lucide:cpu" },
+    { name: "Gestión de Batería", desc: "Mapeo de celdas, balanceo y prueba de capacidad", price: "$40.000", icon: "lucide:battery-charging" },
+    { name: "Actualización de Firmware", desc: "Software oficial para Huyser, GW", price: "$30.000", icon: "lucide:refresh-cw" },
+    { name: "Diagnóstico Eléctrico Completo", desc: "Análisis de sensores, controladora y cableado", price: "$50.000", icon: "lucide:activity" },
+    { name: "Instalación y Reparación Eléctrica", desc: "Cableado interno, conectores y accesorios (luces, pantallas)", price: "$35.000", icon: "lucide:zap" }
+];
+
+const paquetes = [
+    {
+        title: "Paquete Básico",
+        price: "$85.000",
+        items: ["Lavado completo", "Ajuste de frenos y cambios", "Torque básico", "Revisión general"],
+        icon: "lucide:check-circle"
+    },
+    {
+        title: "Paquete Elite",
+        price: "$180.000",
+        items: ["Mantenimiento general", "Purga de frenos", "Ajuste transmisión completa", "Lavado pro + cera", "Centrado de ruedas"],
+        icon: "lucide:award",
+        recommended: true
+    },
+    {
+        title: "Paquete Premium E-Bike",
+        price: "$220.000",
+        items: ["Mantenimiento General", "Diagnostico de batería", "Actualización firmware", "Ajuste mecánico completo", "Diagnóstico avanzado"],
+        icon: "lucide:battery-full"
+    }
+];
+---
+
+<Layout title="Servicios Técnicos Elite | Abiela Zipaquirá - Taller de Bicicletas">
+
+    <div class="flex max-w-7xl mx-auto items-start bg-brand-dark">
+        <aside class="sticky top-[100px] w-72 hidden lg:flex flex-col py-8 z-40 bg-white/[0.02] border-r border-white/5 backdrop-blur-2xl rounded-r-[2.5rem] shadow-2xl shadow-black/50 overflow-hidden">
+            <div class="px-8 mb-10">
+                <h2 class="text-xs font-black text-brand-blue uppercase tracking-[0.4em] italic leading-none mb-2">Service Lab</h2>
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest font-bold">Zipaquirá • Cundinamarca</p>
+            </div>
+            <nav class="flex flex-col space-y-8 px-4 overflow-y-auto no-scrollbar">
+                <a href="#tradicional" class="nav-link group flex items-center px-6 py-4 bg-brand-green/10 text-brand-green rounded-2xl border border-brand-green/20 hover:scale-[1.02] transition-all">
+                    <Icon name="lucide:mountain" class="size-5 mr-4" />
+                    <div>
+                        <span class="font-black italic uppercase text-sm tracking-widest">Tradicional</span>
+                        <span class="block text-[10px] opacity-70">MTB • Ruta • Donwhill</span>
+                    </div>
+                </a>
+                <a href="#ebikes" class="nav-link group flex items-center px-6 py-4 text-gray-400 hover:text-brand-blue hover:bg-white/5 rounded-2xl border border-transparent hover:border-brand-blue/30 transition-all">
+                    <Icon name="lucide:zap" class="size-5 mr-4" />
+                    <div>
+                        <span class="font-black italic uppercase text-sm tracking-widest">E-Bike Lab</span>
+                        <span class="block text-[10px] opacity-70">Motores, Baterías, Eléctricidad</span>
+                    </div>
+                </a>
+                <a href="#paquetes" class="nav-link group flex items-center px-6 py-4 text-gray-400 hover:text-brand-green hover:bg-white/5 rounded-2xl border border-transparent hover:border-brand-green/30 transition-all">
+                    <Icon name="lucide:package" class="size-5 mr-4" />
+                    <div>
+                        <span class="font-black italic uppercase text-sm tracking-widest">Paquetes</span>
+                        <span class="block text-[10px] opacity-70">Combos exclusivos</span>
+                    </div>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 bg-brand-dark min-h-screen pt-32 pb-24 px-6 lg:pl-12">
+            
+            <header class="mb-20 relative">
+                <div class="absolute -top-32 -left-28 size-[500px] bg-brand-blue/10 blur-[140px] -z-10"></div>
+                <span class="text-brand-green font-black tracking-[0.5em] text-xs uppercase italic mb-4 block animate-fade-in">Laboratorio de Precisión • Zipaquirá</span>
+                <h1 class="text-5xl md:text-8xl font-black italic uppercase tracking-[-0.04em] text-white leading-none mb-6">
+                    Tu bici,<br/> 
+                    <span class="text-brand-blue font-outline-1">al siguiente nivel</span>
+                </h1>
+                <p class="max-w-2xl text-gray-400 text-lg leading-relaxed font-light italic">
+                Servicios de mantenimiento y reparación para tu bicicleta, con atención confiable y repuestos de calidad.  
+                Trabajamos con bicicletas MTB, ruta, Donwhill, urbanas y también ofrecemos mantenimiento para bicicletas eléctricas tipo scooter.
+                </p>
+                <div class="flex flex-wrap gap-4 mt-10">
+                    <a href="#paquetes" class="px-8 py-4 bg-brand-green text-brand-dark font-black uppercase tracking-widest rounded-2xl hover:bg-white transition-all active:scale-95 shadow-xl shadow-brand-green/10">Ver paquetes</a>
+                    <a href="https://wa.me/573213634801" class="px-8 py-4 border border-white/20 hover:border-white/60 text-white font-black uppercase tracking-widest rounded-2xl flex items-center gap-3 transition-all active:scale-95">
+                        <Icon name="lucide:message-circle" class="size-5" /> Agendar ahora
+                    </a>
+                </div>
+            </header>
+
+            <section id="tradicional" class="scroll-mt-32 mb-32">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <aside class="lg:col-span-5 lg:sticky lg:top-32">
+                        <div class="glass-card rounded-[2.75rem] p-10 md:p-14 relative overflow-hidden border border-white/10 shadow-2xl">
+                            <div class="absolute -right-24 -bottom-24 w-96 h-96 bg-brand-green/10 blur-[110px] -z-10"></div>
+                            <span class="uppercase text-brand-green text-[10px] font-black tracking-[0.4em] italic block mb-4">Mecánica Biela & Pedal</span>
+                            <h2 class="text-2xl md:text-4xl font-black italic text-white leading-none uppercase tracking-tighter">Servicios <br/> <span class="text-brand-green">Tradicionales</span></h2>
+                            <p class="mt-8 text-gray-400 leading-relaxed font-light italic text-sm md:text-base">
+                                Calibración precisa con torque digital, lubricantes cerámicos y componentes de grado competición. 
+                                Especialistas en <span class="text-white font-bold">MTB, Ruta, Gravity y Downhill</span>.
+                            </p>
+                            <div class="mt-10 flex items-center gap-3 text-brand-green/60 font-black italic text-[9px] uppercase tracking-widest">
+                                <Icon name="lucide:check-circle" class="size-4" />
+                               Alistamiento para tu carrera
+                            </div>
+                        </div>
+                    </aside>
+
+                    <div class="lg:col-span-7 p-4 md:p-8 rounded-[2.75rem] bg-white/[0.01] border border-white/5 backdrop-blur-xl">
+                        <h3 class="text-xl font-black italic uppercase text-white mb-8 pl-5 border-l-4 border-brand-green tracking-widest">Menú de Precisión</h3>
+                        <div id="mantenimiento" class="grid grid-cols-1 gap-3">
+                            {traditionalMenu.map((s) => (
+                                <div class="service-card flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-brand-green/40 group transition-all duration-500">
+                                    <div class="flex items-center gap-5">
+                                        <div class="size-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-brand-green/10 transition-colors">
+                                            <Icon name={s.icon} class="size-6 text-gray-500 group-hover:text-brand-green" />
+                                        </div>
+                                        <div id="pintura">
+                                            <p class="font-bold text-white text-sm md:text-base uppercase italic tracking-tight">{s.name}</p>
+                                            <p class="text-[10px] text-gray-500 mt-1 italic font-light">{s.desc}</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-black text-brand-green text-lg md:text-xl tabular-nums italic">{s.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ebikes" class="scroll-mt-32 mb-32">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <div class="lg:col-span-7 order-2 lg:order-1 p-4 md:p-8 rounded-[2.75rem] bg-white/[0.01] border border-white/5 backdrop-blur-xl">
+                        <h3 class="text-xl font-black italic uppercase text-white mb-8 pl-5 border-l-4 border-brand-blue tracking-widest">Ingeniería Volt</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                            {ebikeMenu.map((s) => (
+                                <div class="service-card flex items-center justify-between p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:border-brand-blue/40 group transition-all duration-500">
+                                    <div class="flex items-center gap-5">
+                                        <div class="size-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-brand-blue/10 transition-colors">
+                                            <Icon name={s.icon} class="size-6 text-gray-500 group-hover:text-brand-blue" />
+                                        </div>
+                                        <div>
+                                            <p class="font-bold text-white text-sm md:text-base uppercase italic tracking-tight">{s.name}</p>
+                                            <p class="text-[10px] text-gray-500 mt-1 italic font-light">{s.desc}</p>
+                                        </div>
+                                    </div>
+                                    <span class="font-black text-brand-blue text-lg md:text-xl tabular-nums italic">{s.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <aside class="lg:col-span-5 order-1 lg:order-2 lg:sticky lg:top-32">
+                        <div class="glass-card rounded-[2.75rem] p-10 md:p-14 bg-gradient-to-br from-brand-blue/10 to-transparent border border-brand-blue/20 shadow-2xl relative overflow-hidden">
+                            <div class="absolute -left-20 -top-20 size-64 bg-brand-blue/20 blur-[100px] -z-10"></div>
+                            <div class="inline-flex items-center gap-2 px-5 py-2 bg-brand-blue/10 border border-brand-blue/30 rounded-full text-[10px] font-black uppercase italic text-brand-blue mb-6">
+                                <Icon name="lucide:cpu" class="size-4" /> Bicilcetas Eléctricas
+                            </div>
+                            <h2 class="text-4xl md:text-5xl font-black italic text-white leading-none uppercase tracking-tighter">Servicios para <br/> <span class="text-brand-blue font-outline-1">E-Bikes</span></h2>
+                            <p class="mt-8 text-gray-400 leading-relaxed font-light italic text-sm md:text-base">
+                                Diagnóstico electrónico avanzado, mantenimiento de motores y optimización de autonomía. 
+                                Compatible con <span class="text-white font-bold">Huyser, Bosch, Shimano, Specialized y Brose</span>.
+                            </p>
+                            <div class="mt-10 flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white/5 rounded-lg text-[8px] font-black uppercase tracking-widest text-gray-400 border border-white/10">Firmware 2026</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-lg text-[8px] font-black uppercase tracking-widest text-gray-400 border border-white/10">BMS Analysis</span>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+            <section id="paquetes" class="scroll-mt-32 mb-24">
+                <div class="text-center mb-16">
+                    <span class="text-brand-green uppercase text-[10px] tracking-[0.4em] font-black italic block mb-3">Maximiza tu inversión</span>
+                    <h2 class="text-5xl md:text-6xl font-black italic uppercase text-white tracking-tighter leading-none">Paquetes <br class="md:hidden" /> <span class="text-brand-green ">Recomendados</span></h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {paquetes.map((p) => (
+                        <div class={`rounded-[2.5rem] p-10 border ${p.recommended ? 'border-brand-green scale-105 shadow-2xl shadow-brand-green/20 z-10 bg-white/[0.04]' : 'border-white/10 bg-white/[0.02]'} backdrop-blur-xl relative flex flex-col transition-all duration-500 hover:border-brand-green/50 group`}>
+                            {p.recommended && (
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-green text-brand-dark text-[9px] font-black px-8 py-1.5 rounded-full uppercase tracking-widest italic shadow-xl">MÁS VENDIDO</div>
+                            )}
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <div class="size-14 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                                        <Icon name={p.icon} class="size-7 text-brand-green" />
+                                    </div>
+                                    <h3 class="text-2xl font-black italic uppercase tracking-tight mt-6 text-white">{p.title}</h3>
+                                </div>
+                                <span class="text-2xl font-black text-brand-green tabular-nums italic">{p.price}</span>
+                            </div>
+                            <ul class="mt-10 space-y-4 flex-grow">
+                                {p.items.map(item => (
+                                    <li class="flex items-start gap-3 text-[13px] text-gray-400 italic font-light">
+                                        <Icon name="lucide:check" class="size-4 text-brand-green mt-0.5" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <a href={`https://wa.me/573213634801?text=Hola!%20Quiero%20agendar%20el%20${encodeURIComponent(p.title)}`} class="mt-10 block w-full py-4 text-center bg-white text-brand-dark font-black uppercase tracking-widest text-[11px] rounded-2xl hover:bg-brand-green transition-all shadow-xl active:scale-95 italic">
+                                Reservar este paquete
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <div class="mt-24 p-10 md:p-16 rounded-[3.5rem] bg-blue-400/10 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden group shadow-2xl">
+                <div class="absolute -top-24 -left-24 size-96 bg-brand-blue/10 blur-[100px] group-hover:bg-brand-blue/20 transition-colors duration-700"></div>
+                <div class="absolute -bottom-24 -right-24 size-96 bg-brand-green/10 blur-[100px] group-hover:bg-brand-green/20 transition-colors duration-700"></div>
+
+                <div class="relative z-10 text-center md:text-left max-w-xl">
+                    <span class="text-brand-green font-black tracking-[0.4em] text-[10px] uppercase italic mb-4 block opacity-80">Ready for the road</span>
+                    <h3 class="text-4xl md:text-5xl font-black italic leading-[0.9] uppercase tracking-tighter text-white">
+                        ¿Tu máquina está <br/> 
+                        <span class="text-brand-blue font-outline-1">lista para ganar?</span>
+                    </h3>
+                    <p class="mt-6 text-sm md:text-base font-light italic text-gray-400 uppercase tracking-widest leading-relaxed">
+                        Zipaquirá: Cra. 19 #13-08 <span class="mx-2 text-white/20">•</span> 
+                        <span class="text-white font-bold">Diagnóstico Pro agenda ahora</span>
+                    </p>
+                </div>
+
+                <div class="relative z-10 flex-shrink-0">
+                    <a href="https://wa.me/573213634801?text=Me%20gustar%C3%ADa%20agendar%20servicios%20de%20mantenimiento%20para%20mi%20bicicleta" target="_blank" class="group/btn relative flex items-center gap-4 bg-white text-brand-dark px-10 py-5 rounded-2xl font-black uppercase tracking-[0.15em] italic text-[11px] transition-all duration-500 hover:bg-brand-green hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+                        <Icon name="lucide:message-circle" class="size-5 transition-transform group-hover/btn:rotate-12" />
+                        Agendar Taller
+                        <div class="absolute inset-0 rounded-2xl border border-white/20 group-hover/btn:border-black/10 transition-colors"></div>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    .glass-card {
+        background: rgba(255,255,255,0.015);
+        backdrop-filter: blur(20px);
+    }
+    .service-card {
+        will-change: transform, border-color;
+    }
+    .service-card:hover {
+        transform: scale(1.01);
+    }
+    .nav-link {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    .font-outline-1 {
+        -webkit-text-stroke: 1.5px rgba(0, 119, 255, 0.4);
+        color: transparent;
+    }
+    .animate-fade-in {
+        animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+
+    /* ===== CORRECCIÓN DE DESBORDAMIENTO EN MÓVIL SIN ROMPER STICKY ===== */
+    
+    /* Nota: NO pongas overflow-x: hidden en html o body aquí */
+    
+    @media (max-width: 768px) {
+        /* Permitimos que el contenido fluya y ajustamos tamaños */
+        .service-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+        }
+        
+        .service-card span {
+            align-self: flex-end;
+            font-size: 1.1rem;
+        }
+
+        /* Ajuste de contenedores para evitar que empujen el ancho */
+        main {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            width: 100%;
+        }
+
+        .glass-card {
+            padding: 1.5rem !important;
+        }
+
+        /* Títulos elásticos */
+        h1 {
+            font-size: 3rem !important;
+        }
+        
+        /* Aseguramos que las imágenes de fondo de las tarjetas no causen scroll */
+        .absolute {
+            max-width: 100vw;
+        }
+    }
+</style>

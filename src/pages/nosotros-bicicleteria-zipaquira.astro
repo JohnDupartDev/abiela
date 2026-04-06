@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const stats = [
+    { label: "Años de Trayectoria", value: "8+", icon: "lucide:calendar-check" },
+    { label: "Máquinas Optimizadas", value: "12k+", icon: "lucide:bike" },
+    { label: "Certificaciones Pro", value: "15+", icon: "lucide:award" },
+    { label: "Clientes Elite", value: "5k+", icon: "lucide:users" }
+];
+---
+
+<Layout title="Nuestra Esencia | Abiela bicicleteria Zipaquirá">
+    <main class="bg-brand-dark min-h-screen pb-24 selection:bg-brand-blue/30 overflow-x-hidden">
+        
+        <section class="relative pt-32 pb-20 px-6 overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-brand-blue/5 to-transparent -z-10"></div>
+            <div class="max-w-7xl mx-auto text-center">
+                <span class="text-brand-green font-black tracking-[0.5em] text-[10px] uppercase italic mb-4 block animate-fade-in">Trayectoria & Ingeniería</span>
+                <h1 class="font-black text-5xl md:text-8xl italic uppercase tracking-tighter mb-6 text-white leading-[0.85]">
+                    Liderando el <br/> <span class="text-brand-blue font-outline-1">Alto Rendimiento</span>
+                </h1>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg font-light italic leading-relaxed">
+                    Desde 2018, transformamos la movilidad en Zipaquirá a través de protocolos técnicos avanzados y una pasión innegociable por la precisión mecánica.
+                </p>
+            </div>
+        </section>
+
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <div class="md:col-span-7 glass-card rounded-[2.5rem] p-8 md:p-14 border border-white/5 relative overflow-hidden group bg-white/[0.01]">
+                <div class="absolute -top-24 -right-24 size-64 bg-brand-blue/10 rounded-full blur-3xl group-hover:bg-brand-blue/20 transition-all duration-700"></div>
+                
+                <div class="relative z-10">
+                    <span class="text-brand-green font-black tracking-widest text-[10px] uppercase italic mb-4 block">Génesis</span>
+                    <h2 class="text-4xl font-black italic uppercase text-white tracking-tighter mb-8">8 Años de <br/> Evolución Técnica</h2>
+                    <div class="space-y-6 text-gray-400 font-light italic leading-relaxed text-sm md:text-base">
+                        <p>
+                            Abiela nació de una necesidad clara: elevar el estándar del servicio técnico para ciclistas que no aceptan términos medios. Comenzamos como un laboratorio especializado en <span class="text-white font-bold">Zipaquirá</span> y hoy somos referentes en movilidad eléctrica y mecánica de competición.
+                        </p>
+                        <p>
+                            Nuestra experiencia se respalda con estudios certificados en los sistemas más complejos del mercado global (Bosch, Shimano, SRAM), permitiéndonos ofrecer una garantía estructural que solo la ingeniería pro puede sostener.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-5 grid grid-cols-2 gap-4">
+                {stats.map(stat => (
+                    <div class="glass-card rounded-[2rem] p-6 border border-white/5 bg-white/[0.02] flex flex-col justify-between hover:border-brand-blue/30 transition-all group">
+                        <Icon name={stat.icon} class="size-6 text-brand-green mb-4 group-hover:scale-110 transition-transform" />
+                        <div>
+                            <p class="text-3xl font-black italic text-white leading-none mb-1">{stat.value}</p>
+                            <p class="text-[9px] uppercase font-black text-gray-500 tracking-widest leading-tight">{stat.label}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div class="md:col-span-6 glass-card rounded-[2.5rem] p-8 md:p-12 border border-white/5 bg-white/[0.01] flex flex-col justify-between group">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 rounded-2xl bg-brand-blue/10 text-brand-blue shrink-0">
+                        <Icon name="lucide:target" class="size-8" />
+                    </div>
+                    <h3 class="text-2xl font-black italic uppercase text-white tracking-tight">Misión</h3>
+                </div>
+                <p class="text-gray-400 font-light italic leading-relaxed">
+                    Democratizar el acceso a la <span class="text-brand-blue font-bold">Ingeniería de Alto Rendimiento</span>, proporcionando soluciones de movilidad sostenible y mecánica de precisión que permitan a cada ciclista alcanzar su máximo potencial, respaldados por tecnología de vanguardia y un servicio humano excepcional.
+                </p>
+                <div class="mt-8 pt-8 border-t border-white/5">
+                    <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest">Protocolos de Servicio 2026</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-6 glass-card rounded-[2.5rem] p-8 md:p-12 border border-white/5 bg-white/[0.01] flex flex-col justify-between group">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="p-4 rounded-2xl bg-brand-green/10 text-brand-green shrink-0">
+                        <Icon name="lucide:eye" class="size-8" />
+                    </div>
+                    <h3 class="text-2xl font-black italic uppercase text-white tracking-tight">Visión</h3>
+                </div>
+                <p class="text-gray-400 font-light italic leading-relaxed">
+                    Consolidarnos para el 2030 como el <span class="text-brand-green font-bold">Centro de Innovación en Movilidad</span> más importante de la región, liderando la transición hacia el ecosistema eléctrico y siendo el aliado técnico preferido por las marcas de alta gama a nivel nacional.
+                </p>
+                <div class="mt-8 pt-8 border-t border-white/5 text-right">
+                    <span class="text-[9px] font-black text-gray-600 uppercase tracking-widest">Zipaquirá • Global Standards</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-12 glass-card rounded-[2.5rem] overflow-hidden border border-white/5 relative min-h-[500px] md:min-h-[400px] bg-[#0d0d0d] group">
+    <div class="absolute inset-0 z-10 flex flex-col justify-end md:justify-center px-6 py-12 md:px-20 bg-gradient-to-t from-brand-dark via-brand-dark/80 md:via-brand-dark/40 to-transparent md:bg-gradient-to-r">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-blue/10 border border-brand-blue/20 rounded-full text-brand-blue text-[9px] md:text-[10px] font-black uppercase italic mb-4 md:mb-6 w-fit">
+            <Icon name="lucide:shield-check" class="size-3" /> Taller Certificado
+        </div>
+
+        <h2 class="text-3xl md:text-6xl font-black italic uppercase text-white mb-8 md:mb-6 leading-[0.9] md:leading-none tracking-tighter">
+            Estudios que avalan <br class="hidden md:block" /> nuestra <span class="text-brand-green">maestría</span>
+        </h2>
+
+        <div class="grid grid-cols-2 md:flex md:flex-wrap gap-x-6 gap-y-8 md:gap-12 opacity-80 md:opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+            
+            <div class="flex flex-col items-start md:items-center">
+                <Icon name="lucide:award" class="size-8 md:size-10 text-white mb-2" />
+                <span class="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] text-white leading-tight">Shimano <br class="md:hidden"/> Service Tech</span>
+            </div>
+
+            <div class="col-span-1 flex flex-col items-start md:items-center">
+                <Icon name="lucide:cpu" class="size-8 md:size-10 text-white mb-2" />
+                <span class="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] text-white leading-tight">
+                    Huyser E-Bikes <br class="md:hidden"/> E-Systems
+                </span>
+            </div>
+
+            <div class="flex flex-col items-start md:items-center">
+                <Icon name="lucide:wrench" class="size-8 md:size-10 text-white mb-2" />
+                <span class="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] text-white leading-tight">SRAM <br class="md:hidden"/> Certified</span>
+            </div>
+
+            <div class="flex flex-col items-start md:items-center">
+                <Icon name="lucide:zap" class="size-8 md:size-10 text-white mb-2" />
+                <span class="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] text-white leading-tight">Elite <br class="md:hidden"/> Mobility Pro</span>
+            </div>
+            
+        </div>
+    </div>
+
+    <img 
+        src="/images/mecanico-abiela.jpg" 
+        class="absolute inset-0 w-full h-full object-cover grayscale opacity-40 md:opacity-30 group-hover:scale-105 transition-transform duration-[10s]" 
+        alt="Taller Abiela" 
+    />
+</div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 mt-20">
+            <div class="p-10 md:p-16 rounded-[3.5rem] bg-brand-blue/20 border border-white/10 flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden group shadow-2xl">
+                <div class="absolute -top-24 -left-24 size-96 bg-brand-blue/10 blur-[100px]"></div>
+                <div class="relative z-10 text-center md:text-left">
+                    <h3 class="text-4xl md:text-5xl font-black italic leading-[0.9] uppercase tracking-tighter text-white">
+                        ¿Quieres ver cómo <br/> <span class="text-brand-green ">trabajamos?</span>
+                    </h3>
+                    <p class="mt-6 text-xs md:text-sm font-light italic text-gray-400 uppercase tracking-widest">Visítanos en Zipaquirá y vive la experiencia Abiela.</p>
+                </div>
+                <a href="/contacto" class="relative z-10 flex items-center gap-4 bg-white text-brand-dark px-10 py-5 rounded-2xl font-black uppercase tracking-[0.15em] italic text-[11px] transition-all hover:bg-brand-green hover:scale-105 active:scale-95 shadow-xl">
+                    Agendar Visita
+                </a>
+            </div>
+        </div>
+
+    </main>
+</Layout>
+
+<style>
+    .glass-card {
+        backdrop-filter: blur(20px);
+    }
+    .font-outline-1 {
+        -webkit-text-stroke: 1px rgba(0, 119, 255, 0.4);
+        color: transparent;
+    }
+    .animate-fade-in {
+        animation: fadeIn 1.5s ease-out forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

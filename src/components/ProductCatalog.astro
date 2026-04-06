@@ -48,7 +48,7 @@ import { eBikes } from '../data/products'; // Importamos tu data maestra
     import { addToCart } from '../store/cartStore';
 
     // Función para mostrar la notificación Toast Responsive
-    function showNotification(productName, productImg) {
+    function showNotification(productName: string, productImg: string) {
         const container = document.getElementById('toast-container');
         if (!container) return;
 

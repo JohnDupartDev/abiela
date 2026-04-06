@@ -1,0 +1,147 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+
+const sections = [
+    {
+        title: "Ecosistema E-Bikes",
+        links: [
+            { name: "Catálogo E-Bikes", path: "/bicicletas-electricas" },
+            { name: "Taller Especializado", path: "/servicios" },
+            { name: "Garantia E-Bikes", path: "/garantia-bicicletas-electricas" },
+            { name: "Agendar Mantenimiento", path: "https://wa.me/573213634801" }
+        ]
+    },
+    {
+        title: "Soporte & Ayuda",
+        links: [
+            { name: "Preguntas Frecuentes", path: "/#faq" },
+            { name: "Ubicación", path: "/#ubicacion" },
+            { name: "Nosotros", path: "/nosotros-bicicleteria-zipaquira" },
+            { name: "Contacto Directo", path: "/contacto" }
+        ]
+    },
+    {
+        title: "Servicios Biciletas",
+        links: [
+            { name: "Mantemiento", path: "/servicios#mantenimiento" },
+            { name: "Suspención", path: "/servicios#pintura" },
+            { name: "Frenos", path: "/servicios#pintura" },
+            { name: "Pintura", path: "/servicios#pintura" }
+        ]
+    }
+];
+
+const socialLinks = [
+    { icon: "lucide:facebook", path: "#", name: "Facebook" },
+    { icon: "lucide:instagram", path: "https://instagram.com/abielabikes", name: "Instagram" },
+    { icon: "lucide:youtube", path: "#", name: "YouTube" }
+];
+---
+
+<footer class="bg-brand-dark pt-20 pb-10 relative overflow-hidden border-t border-white/5">
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-blue/5 blur-[120px] -z-10 pointer-events-none"></div>
+    <div class="absolute top-0 left-0 w-[300px] h-[300px] bg-brand-green/5 blur-[100px] -z-10 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+            
+            <div class="lg:col-span-4 space-y-8">
+                <a href="/" class="inline-block">
+                    <img src="/logo-abiela.svg" alt="Abiela Elite Mobility" class="h-20 w-auto mb-2" />
+                    <span class="block text-[10px] text-brand-green font-black uppercase tracking-[0.5em] ">Elite Mobility Store</span>
+                </a>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start gap-4 group">
+                        <div class="size-11 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-blue transition-colors shrink-0">
+                            <Icon name="lucide:map-pin" class="size-6 text-brand-blue" />
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed font-">
+                            Cra. 19 #13-08, Zipaquirá,<br/>
+                            Cundinamarca, Colombia.
+                        </p>
+                    </div>
+
+                    <div class="flex items-start gap-4 group">
+                        <div class="size-11 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-brand-green transition-colors shrink-0">
+                            <Icon name="lucide:phone" class="size-6 text-brand-green" />
+                        </div>
+                        <div>
+                            <p class="text-[11px] text-gray-600 font-black uppercase tracking-widest mb-1 ">Soporte Técnico</p>
+                            <a href="tel:+573213634801" class="text-base text-white font-bold hover:text-brand-green transition-colors">+57 321 3634801</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    {socialLinks.map(link => (
+                        <a href={link.path} aria-label={link.name} class="size-11 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-gray-400 hover:bg-white hover:text-brand-dark hover:scale-110 transition-all duration-300">
+                            <Icon name={link.icon} class="size-6" />
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8 pt-18">
+                {sections.map(section => (
+                    <div class="space-y-6">
+                        <h4 class="text-[12px] font-black uppercase tracking-[0.3em] text-brand-blue  border-b border-brand-blue/20 pb-2 w-fit">
+                            {section.title}
+                        </h4>
+                        <ul class="space-y-5">
+                            {section.links.map(link => (
+                                <li>
+                                    <a href={link.path} class="text-sm text-gray-400 hover:text-white transition-all font-medium  flex items-center gap-2 group">
+                                        <span class="size-1.5 rounded-full bg-brand-green opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                        {link.name}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div class="relative h-[1px] w-full bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-1 size-2 rounded-full bg-brand-blue blur-[2px]"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-left">
+                <p class="text-[11px] font-black text-gray-600 uppercase tracking-widest leading-relaxed">
+                    © {currentYear} Abiela Bikes. Todos los derechos reservados.<br/>
+                    Diseñado por  <span class="text-brand-blue font-bold">Zipaquirá Digital</span>.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-8 opacity-30 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
+                <Icon name="lucide:shield-check" class="size-7 text-white" />
+                <Icon name="lucide:zap" class="size-7 text-white" />
+                <Icon name="lucide:lock" class="size-7 text-white" />
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer {
+        /* Para que siempre esté al final */
+        margin-top: auto;
+    }
+    
+    /* Animación de entrada suave */
+    @keyframes fadeInFooter {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    footer {
+        animation: fadeInFooter 1.5s ease-out forwards;
+    }
+
+    .font-black { font-weight: 900; }
+</style>

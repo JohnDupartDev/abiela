@@ -1,0 +1,175 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const testimonials = [
+    {
+        name: "Ricardo Torres",
+        role: "Usuario Huyser Moscow",
+        text: "La potencia de la Moscow 2.0 en las subidas de Zipaquirá es increíble. Ahorro tiempo y llego fresco a la oficina. ¡Excelente servicio!",
+        stars: 5,
+    },
+    {
+        name: "Claudia Rojas",
+        role: "Cliente Taller Elite",
+        text: "Llevé mi bici de ruta para mantenimiento de frenos hidráulicos. La atención al detalle y el conocimiento técnico son de otro nivel.",
+        stars: 5,
+    },
+    {
+        name: "Felipe Mendoza",
+        role: "Dueño de Madrid Litio",
+        text: "La batería extraíble de la Madrid es lo mejor para cargarla en el apto. El diseño elegante siempre roba miradas en la calle.",
+        stars: 5,
+    },
+    {
+        name: "Marcela P.",
+        role: "Ciclista Urbana",
+        text: "Abiela no solo vende bicis, te dan una solución real de movilidad. Me asesoraron perfectamente según mi peso y recorrido diario.",
+        stars: 5,
+    },
+    {
+        name: "Jorge Iván",
+        role: "Usuario Portugal 2.0",
+        text: "Buscaba algo económico y ágil para el día a día. La Portugal superó mis expectativas. El respaldo del taller en la sede es clave.",
+        stars: 5,
+    },
+];
+
+const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+---
+
+<section class="py-20 bg-brand-dark overflow-hidden relative selection:bg-brand-blue/30">
+    
+    <div class="max-w-7xl mx-auto px-6 mb-16 flex flex-col items-center text-center">
+        <span class="text-brand-green font-black tracking-[0.4em] text-[10px] uppercase italic mb-3 block animate-fade-in">Testimonios Reales</span>
+        <h2 class="text-4xl md:text-6xl font-black italic uppercase tracking-tighter text-white leading-none mb-6">
+            Comunidad <span class="text-brand-blue">Elite</span>
+        </h2>
+        
+        <a 
+            href="https://maps.google.com" 
+            target="_blank"
+            class="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-brand-green transition-all"
+        >
+            <Icon name="lucide:arrow-up-right" class="size-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            Ver reseñas en Google Maps
+        </a>
+    </div>
+
+    <div class="flex flex-col gap-6 md:gap-10">
+        
+        <div class="relative flex overflow-hidden">
+            <div class="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex gap-6 animate-scroll-left hover:[animation-play-state:paused]">
+                {duplicatedTestimonials.map((item) => (
+                    <div class="testimonial-card group">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="size-12 rounded-full bg-brand-blue/10 border border-brand-blue/20 flex items-center justify-center text-brand-blue font-black italic text-xl">
+                                {item.name.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="text-white font-black italic uppercase text-sm leading-none mb-1">{item.name}</p>
+                                <p class="text-brand-green text-[9px] font-black uppercase tracking-widest">{item.role}</p>
+                            </div>
+                        </div>
+                        <div class="flex text-brand-blue gap-1 mb-4 opacity-70">
+                            {[...Array(item.stars)].map(() => (
+                                <Icon name="lucide:star" class="size-3" />
+                            ))}
+                        </div>
+                        <p class="text-gray-400 text-sm md:text-base font-light italic leading-relaxed line-clamp-4">
+                            "{item.text}"
+                        </p>
+                        <Icon name="lucide:quote" class="absolute bottom-6 right-8 size-12 text-white/[0.03] -z-10 group-hover:text-brand-blue/5 transition-colors" />
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <div class="relative flex overflow-hidden">
+            <div class="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none"></div>
+            
+            <div class="flex gap-6 animate-scroll-right hover:[animation-play-state:paused]">
+                {duplicatedTestimonials.map((item) => (
+                    <div class="testimonial-card group">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="size-12 rounded-full bg-brand-green/10 border border-brand-green/20 flex items-center justify-center text-brand-green font-black italic text-xl">
+                                {item.name.charAt(0)}
+                            </div>
+                            <div>
+                                <p class="text-white font-black italic uppercase text-sm leading-none mb-1">{item.name}</p>
+                                <p class="text-brand-blue text-[9px] font-black uppercase tracking-widest">{item.role}</p>
+                            </div>
+                        </div>
+                        <div class="flex text-brand-blue gap-1 mb-4 opacity-70">
+                            {[...Array(item.stars)].map(() => (
+                                <Icon name="lucide:star" class="size-3" />
+                            ))}
+                        </div>
+                        <p class="text-gray-400 text-sm md:text-base font-light italic leading-relaxed line-clamp-4">
+                            "{item.text}"
+                        </p>
+                        <Icon name="lucide:quote" class="absolute bottom-6 right-8 size-12 text-white/[0.03] -z-10 group-hover:text-brand-green/5 transition-colors" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Eliminamos @apply de clases dinámicas para evitar errores en v4 */
+    .testimonial-card {
+        flex-shrink: 0;
+        background-color: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 2.5rem;
+        position: relative;
+        transition: all 500ms;
+        backdrop-filter: blur(4px);
+        width: 300px;
+        will-change: transform;
+    }
+
+    @media (min-width: 768px) {
+        .testimonial-card {
+            width: 450px;
+        }
+    }
+
+    .testimonial-card:hover {
+        background-color: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Animaciones */
+    .animate-scroll-left {
+        animation: scroll-left 60s linear infinite;
+    }
+
+    .animate-scroll-right {
+        animation: scroll-right 60s linear infinite;
+    }
+
+    @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-33.33% - 1.5rem)); }
+    }
+
+    @keyframes scroll-right {
+        0% { transform: translateX(calc(-33.33% - 1.5rem)); }
+        100% { transform: translateX(0); }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

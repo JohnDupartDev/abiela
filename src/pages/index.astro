@@ -1,23 +1,26 @@
 ---
-import ProductCatalog from '@/components/Home/ProductCatalog.astro';
-import BrandsMarquee from '../components/Home/BrandsMarquee.astro';
-import ConversionExpert from '../components/Home/ConversionExpert.astro';
-import Ecosystem from '../components/Home/Ecosystem.astro';
-import EngineeringServices from '../components/Home/EngineeringServices.astro';
-import Hero from '../components/Home/Hero.astro';
-import PromiseSection from '../components/Home/PromiseSection.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Usa el alias @/ que apunta a src/
+import Hero from '@/components/Home/HeroSection.astro';
+import BrandsMarquee from '@/components/Home/BrandsMarquee.astro';
+import EngineeringServices from '@/components/Home/EngineeringServices.astro';
+import PromiseSection from '@/components/Home/PromiseSection.astro';
+import Ecosystem from '@/components/Home/Ecosystem.astro';
+import ProductCatalog from '@/components/Home/ProductCatalog.astro';
+import ContactSection from '@/components/Home/ContactSection.astro';
+import Faq from '@/components/Faq.astro';
+import CtaHome from '@/components/Home/Ctahome.astro';
 ---
 
-<Layout>
-	<Hero />
-	<BrandsMarquee />
-	
-	<EngineeringServices />
-	<PromiseSection />
-	<Ecosystem />
-	<ProductCatalog />
+<Layout title="Abiela | Elite Mobility Store">
+    <Hero />
+    <BrandsMarquee />
+    <EngineeringServices />
+    <PromiseSection />
+    <Ecosystem />
+    <ProductCatalog />
+    <Faq />
+    <ContactSection />
+    <CtaHome />
 </Layout>

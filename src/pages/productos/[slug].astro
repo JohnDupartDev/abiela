@@ -132,7 +132,7 @@ const related = [...sameCategory, ...differentCategory].slice(0, 4);
                     {product.inStock ? (
                         <button class="add-to-cart-btn w-full bg-brand-green text-brand-dark py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] shadow-xl hover:bg-white transition-all active:scale-95 flex items-center justify-center gap-2">
                             <Icon name="lucide:shopping-bag" class="size-4 stroke-[2.5px]" />
-                            Añadir al Carrito
+                            Comprar por WhastApp
                         </button>
                     ) : (
                         <button disabled class="w-full bg-gray-800 text-gray-500 py-4 rounded-xl font-black uppercase italic tracking-widest text-[11px] cursor-not-allowed flex items-center justify-center gap-2">
@@ -161,7 +161,7 @@ const related = [...sameCategory, ...differentCategory].slice(0, 4);
 
         <div class="mb-24">
             <h2 class="text-2xl font-black italic uppercase tracking-tighter text-center mb-12">
-                Ingeniería de <span class="text-brand-blue font-outline-1">Alta Precisión</span>
+                Ingeniería de <span class="text-brand-blue font-bold">Alta Precisión</span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
                 <div class="md:col-span-2 bg-white/[0.01] border border-white/10 rounded-[2rem] p-8">
@@ -182,7 +182,7 @@ const related = [...sameCategory, ...differentCategory].slice(0, 4);
 
         <div class="mb-10">
             <h2 class="text-xl font-black italic uppercase tracking-tighter mb-8">
-                Línea <span class="text-brand-blue font-outline-1">Relacionada</span>
+                Línea <span class="text-brand-blue font-bold">Relacionada</span>
             </h2>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {related.map(rel => (

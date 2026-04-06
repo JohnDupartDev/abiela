@@ -1,0 +1,149 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const faqs = [
+    {
+        category: 'E-Bikes',
+        question: '¿Cuánto tiempo dura la carga de la batería?',
+        answer: 'Depende del modelo y el modo de asistencia, pero nuestras Huyser ofrecen una autonomía de entre 50km y 90km. El tiempo de carga total varía entre 4 a 6 horas conectada a un toma corriente convencional.'
+    },
+    {
+        category: 'Servicio Técnico',
+        question: '¿Realizan mantenimiento a bicicletas tradicionales?',
+        answer: '¡Por supuesto! Somos expertos en mecánica multimarca. Realizamos desde mantenimiento general hasta servicios especializados en frenos hidráulicos y suspensiones.'
+    },
+    {
+        category: 'E-Bikes',
+        question: '¿Es difícil manejar una bicicleta eléctrica?',
+        answer: 'Para nada. Funciona igual que una bicicleta tradicional pero con un "empuje" extra al pedalear. Además, cuentan con un panel LED para controlar el nivel de asistencia.'
+    },
+    {
+        category: 'Garantía',
+        question: '¿Qué garantía tienen los productos Abiela?',
+        answer: 'Todas nuestras E-bikes cuentan con garantía estructural y técnica. En nuestro taller en Zipaquirá aseguramos el respaldo post-venta y repuestos originales.'
+    },
+    {
+        category: 'Tradicionales',
+        question: '¿Cada cuánto debo llevar mi bici a mantenimiento?',
+        answer: 'Recomendamos un mantenimiento general cada 3 a 6 meses. Si sales a ruta frecuentemente, un chequeo preventivo mensual evitará desgastes prematuros.'
+    }
+];
+---
+
+<section id="faq" class="py-16 md:py-24 bg-brand-dark selection:bg-brand-blue/30">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            <aside class="lg:col-span-5 lg:sticky lg:top-32">
+                <div class="space-y-5">
+                    <span class="text-brand-green font-black tracking-[0.4em] text-[9px] uppercase italic mb-2 block animate-fade-in">Soporte Abiela</span>
+                    <h2 class="text-3xl md:text-5xl font-black italic uppercase tracking-tighter text-white leading-[0.9] mb-6">
+                        Preguntas <br/> <span class="text-brand-blue font-outline-1">Frecuentes</span>
+                    </h2>
+                    <p class="text-gray-500 text-sm md:text-base font-light italic leading-relaxed max-w-sm mb-8">
+                        Todo lo que necesitas saber sobre tu próxima <span class="text-white font-bold">E-bike</span> o el cuidado de tu <span class="text-white font-bold">bici tradicional</span>.
+                    </p>
+                    
+                    <div class="hidden lg:block">
+                        <a href="https://wa.me/573213634801" target="_blank" class="inline-flex items-center gap-2.5 bg-white text-brand-dark px-8 py-3.5 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-brand-green transition-all shadow-xl active:scale-95">
+                            <Icon name="lucide:message-circle" class="size-4" />
+                            Hablar con un Experto
+                        </a>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-7 space-y-4">
+                {faqs.map((faq) => (
+                    <div class="faq-item group border border-white/5 rounded-3xl bg-white/[0.02] backdrop-blur-sm transition-all duration-500 hover:border-brand-blue/30">
+                        <button class="faq-trigger w-full flex items-center justify-between p-6 md:p-8 text-left outline-none">
+                            <div class="flex flex-col gap-2">
+                                <span class={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full w-fit ${faq.category === 'E-Bikes' ? 'bg-brand-blue/10 text-brand-blue' : 'bg-brand-green/10 text-brand-green'}`}>
+                                    {faq.category}
+                                </span>
+                                <h3 class="text-lg md:text-xl font-bold text-white uppercase italic tracking-tight group-hover:text-brand-blue transition-colors leading-tight">
+                                    {faq.question}
+                                </h3>
+                            </div>
+                            <div class="size-10 rounded-full bg-white/5 flex items-center justify-center shrink-0 ml-4 group-hover:bg-brand-blue/20 transition-all duration-500 icon-wrapper">
+                                <Icon name="lucide:plus" class="size-5 text-brand-blue transition-transform duration-500" />
+                            </div>
+                        </button>
+                        
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out px-6 md:px-8">
+                            <div class="pb-8 text-gray-400 font-light italic leading-relaxed text-sm md:text-base border-t border-white/5 pt-4">
+                                {faq.answer}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+                
+                <div class="pt-6 lg:hidden text-center">
+                    <a href="https://wa.me/573213634801" target="_blank" class="inline-flex items-center gap-3 bg-brand-green text-brand-dark w-full justify-center py-4 rounded-2xl font-black uppercase italic tracking-widest text-[11px]">
+                        <Icon name="lucide:message-circle" class="size-4" />
+                        Consultoría Técnica
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function initFaq() {
+        const triggers = document.querySelectorAll('.faq-trigger');
+        
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const parent = trigger.parentElement;
+                const content = trigger.nextElementSibling as HTMLElement;
+                const icon = trigger.querySelector('.icon-wrapper svg') as HTMLElement;
+                
+                // Cerrar otros abiertos
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== parent) {
+                        const otherContent = item.querySelector('.faq-content') as HTMLElement;
+                        const otherIcon = item.querySelector('.icon-wrapper svg') as HTMLElement;
+                        if (otherContent) otherContent.style.maxHeight = '0px';
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                        item.classList.remove('border-brand-blue/50', 'bg-white/[0.05]');
+                    }
+                });
+
+                // Toggle actual
+                if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    if (icon) icon.style.transform = 'rotate(45deg)';
+                    parent?.classList.add('border-brand-blue/50', 'bg-white/[0.05]');
+                } else {
+                    content.style.maxHeight = "0px";
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                    parent?.classList.remove('border-brand-blue/50', 'bg-white/[0.05]');
+                }
+            });
+        });
+    }
+
+    initFaq();
+    document.addEventListener('astro:after-swap', initFaq);
+</script>
+
+<style>
+    .faq-item {
+        will-change: transform, background-color;
+    }
+    
+    .font-outline-1 {
+        -webkit-text-stroke: 1px rgba(0, 119, 255, 0.4);
+        color: transparent;
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

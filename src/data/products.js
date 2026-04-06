@@ -11,12 +11,12 @@ export const eBikes = [
         inStock: true, // 👈 Nuevo campo
         stockLocation: 'En Stock Zipaquirá', // 👈 Nuevo campo
         description: 'La Huyser Moscow 2.0 es una E-bike urbana potente y robusta, diseñada para quienes buscan mayor rendimiento y carácter en cada trayecto. Combina potencia, seguridad y tecnología avanzada para una conducción firme.',
-        image: '/images/e-bike-moscow.jpg',
+        image: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-naranja.jpg',
         variants: [
-            { name: 'Naranja', hex: '#ff8c00', img: '/images/e-bike-moscow.jpg' },
-            { name: 'Negro', hex: '#000000', img: '/images/e-bike.jpg' },
-            { name: 'Rojo', hex: '#e31b23', img: '/images/e-bike-portugal.jpg' },
-            { name: 'Verde', hex: '#28a745', img: '/images/e-bike-new-york.jpg' }
+            { name: 'Naranja', hex: '#ff8c00', img: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-naranja.jpg' },
+            { name: 'Negro', hex: '#000000', img: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-negra.jpg' },
+            { name: 'Rojo', hex: '#e31b23', img: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-roja.jpg' },
+            { name: 'Verde', hex: '#28a745', img: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-verde.jpg' }
         ],
         specs: {
             autonomy: '50 km (Modo ECO)',
@@ -40,11 +40,10 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'Inspirada en la energía vibrante de la capital española, combina potencia, diseño compacto y tecnología de litio extraíble para una movilidad urbana dinámica y ágil.',
-        image: '/images/e-bike-portugal.jpg',
+        image: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-negra.jpg',
         variants: [
-            { name: 'Verde Bosque', hex: '#2e5a31', img: '/images/e-bike.jpg' },
-            { name: 'Crema', hex: '#f5f5dc', img: '/images/madrid-crema.jpg' },
-            { name: 'Negro Mate', hex: '#1a1a1a', img: '/images/madrid-negro.jpg' }
+            { name: 'Negro', hex: '#000000', img: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-negra.jpg' },
+            { name: 'Crema', hex: '#e5ceac', img: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-beige.jpg' },
         ],
         specs: {
             autonomy: '55 km',
@@ -65,14 +64,13 @@ export const eBikes = [
         price: '$4.100.000',
         priceNumber: 4100000,
         tag: 'Resistente',
-        inStock: false, // 👈 Ejemplo: Agotado
-        stockLocation: 'Agotado Temporalmente',
+        inStock: true, // 👈 Ejemplo: Agotado
+        stockLocation: 'En Stock Zipaquirá',
         description: 'Diseñada para ofrecer potencia y estabilidad. Una e-bike urbana de alto rendimiento con desempeño sólido, seguridad y confort para el día a día en la ciudad.',
-        image: '/images/e-bike-new-york.jpg',
+        image: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-normal-negra.jpg',
         variants: [
-            { name: 'Arena', hex: '#dcb35c', img: '/images/e-bike-portugal.jpg' },
-            { name: 'Azul', hex: '#4a90e2', img: '/images/madrid-azul.jpg' },
-            { name: 'Verde', hex: '#7ed321', img: '/images/madrid-verde.jpg' }
+            { name: 'Negra', hex: '#000000', img: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-normal-negra' },
+            { name: 'Arena', hex: '#dcb35c', img: '/images/madrid/Bicicleta-electrica-zipaquira-madrid-normal-beige' },
         ],
         specs: {
             autonomy: '60 km',
@@ -96,11 +94,11 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'Compacta, práctica y eficiente. Diseñada para moverte con agilidad. Su batería de litio facilita la carga en casa u oficina ofreciendo movilidad sostenible.',
-        image: '/images/e-bike-portugal.jpg',
+        image: '/images/portugal/Bicicleta-electrica-zipaquira-portugal-negra.jpg',
         variants: [
-            { name: 'Negro', hex: '#000000', img: '/images/portugal-ultramax.jpg' },
-            { name: 'Rosa', hex: '#ffc0cb', img: '/images/portugal-rosa.jpg' },
-            { name: 'Naranja', hex: '#ff8c00', img: '/images/portugal-naranja.jpg' }
+            { name: 'Negro', hex: '#000000', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugal-negra.jpg' },
+            { name: 'Rosa', hex: '#ffc0cb', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugal-rosa.jpg' },
+            { name: 'Gris', hex: '#6d7477', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugal-gris.jpg' }
         ],
         specs: {
             autonomy: '55 km',
@@ -124,11 +122,11 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'Urbana compacta y funcional, ideal para desplazamientos diarios. Ágil, económica y fácil de manejar, ofrece una solución práctica de movilidad eléctrica.',
-        image: '/images/e-bike-new-york.jpg',
+        image: '/images/portugal/Bicicleta-electrica-zipaquira-portugaln-roja.jpg',
         variants: [
-            { name: 'Rojo', hex: '#ff0000', img: '/images/portugal-2.jpg' },
-            { name: 'Menta', hex: '#98ff98', img: '/images/portugal-menta.jpg' },
-            { name: 'Blanco', hex: '#ffffff', img: '/images/portugal-blanco.jpg' }
+            { name: 'Rojo', hex: '#ff0000', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugaln-roja.jpg' },
+            { name: 'Rosa', hex: '#efb9e8', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugaln-rosa.jpg' },
+            { name: 'Negro', hex: '#000000', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugaln-negro.jpg' }
         ],
         specs: {
             autonomy: '30 - 40 km',
@@ -152,11 +150,11 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'Inspirada en el movimiento constante de la Gran Manzana. Versátil, práctica y moderna, perfecta para quienes buscan equilibrio entre rendimiento y eficiencia.',
-        image: '/images/new-york.jpg',
+        image: '/images/new-york/bicicleta-electrica-new-york-normal-gris.jpg',
         variants: [
-            { name: 'Gris Tech', hex: '#b2b2b2', img: '/images/new-york.jpg' },
-            { name: 'Azul Deep', hex: '#2c3e50', img: '/images/new-york-blue.jpg' },
-            { name: 'Negro', hex: '#000000', img: '/images/new-york-black.jpg' }
+            { name: 'Gris Tech', hex: '#b2b2b2', img: '/images/new-york/bicicleta-electrica-new-york-normal-gris.jpg' },
+            { name: 'Beige', hex: '#d7d0c2', img: '/images/new-york/bicicleta-electrica-new-york-normal-beige.jpg' },
+            { name: 'Negro', hex: '#000000', img: '/images/new-york/bicicleta-electrica-new-york-normal-negra.jpg' }
         ],
         specs: {
             autonomy: '50 km en modo ECO',
@@ -180,11 +178,10 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'Combina simplicidad, eficiencia y estilo para tus recorridos diarios. Pensada para quienes valoran la practicidad sin renunciar al carácter histórico y elegante.',
-        image: '/images/roma.jpg',
+        image: '/images/roma/Bicicleta-electrica-zipaquira-roma-roja.jpg',
         variants: [
-            { name: 'Rojo Ferrari', hex: '#ff0000', img: '/images/roma.jpg' },
-            { name: 'Blanco Perla', hex: '#fdfdfd', img: '/images/roma-white.jpg' },
-            { name: 'Negro', hex: '#000000', img: '/images/roma-black.jpg' }
+            { name: 'Rojo Ferrari', hex: '#ff0000', img: '/images/roma/Bicicleta-electrica-zipaquira-roma-roja.jpg' },
+            { name: 'Negro', hex: '#000000', img: '/images/roma/Bicicleta-electrica-zipaquira-roma-negra.jpg' }
         ],
         specs: {
             autonomy: '50 km en modo ECO',
@@ -208,11 +205,11 @@ export const eBikes = [
         inStock: true,
         stockLocation: 'En Stock Zipaquirá',
         description: 'La e-bike más eficiente y rápida del país. Su combinación de potencia y autonomía extendida redefine la movilidad urbana extrema.',
-        image: '/images/ny-ultramax.jpg',
+        image: '/images/new-york/bicicleta-electrica-new-york-roja-blanco.jpg',
         variants: [
-            { name: 'Sport (Rojo/Blanco/Azul)', hex: '#ffffff', img: '/images/ny-ultramax.jpg' },
-            { name: 'Purple Night', hex: '#4b0082', img: '/images/ny-purple.jpg' },
-            { name: 'Negro', hex: '#000000', img: '/images/ny-black.jpg' }
+            { name: 'Rojo/Blanco', hex: '#d31c32', img: '/images/new-york/bicicleta-electrica-new-york-roja-blanco.jpg' },
+            { name: 'Verde/Blanco', hex: '#1d6741', img: '/images/new-york/bicicleta-electrica-new-york-verde.jpg' },
+            { name: 'Negro', hex: '#000000', img: '/images/new-york/bicicleta-electrica-new-york-negra.jpg' }
         ],
         specs: {
             autonomy: 'Hasta 90 km en modo ECO',

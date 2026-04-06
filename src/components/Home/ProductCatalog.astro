@@ -3,15 +3,14 @@
 import { Icon } from 'astro-icon/components';
 
 const products = [
-    { name: 'Bicicleta electrica Huyser Moscow 2.0', desc: 'La Huyser Moscow 2.0 es una E-bike urbana potente y robusta, diseñada para quienes buscan mayor rendimiento y carácter en cada trayecto', price: '$ 3.900.000', tag: 'Nuevo', img: '/images/e-bike-moscow.jpg', slug: 'aurora-mtb-pro-x1' },
-    { name: 'Bicicleta Electrica Huyser Portugal UltraMax Litio', desc: 'La Huyser Portugal Ultra Max Litio es una E-bike urbana compacta, práctica y eficiente, diseñada para moverte con agilidad en la ciudad. ', price: '$ 3.200.000', img: '/images/e-bike-portugal.jpg', slug: 'tech-helmet-v4' },
-    { name: 'Bicicleta Electrica Huyser New York Ultra Max Litio', desc: 'Inspirada en la energía imparable de Nueva York, la Huyser New York Ultra Max Litio está diseñada para quienes viven la ciudad a su propio ritmo.', price: '$5.800.000', img: 'images/e-bike-new-york.jpg', slug: 'k-drive-city-plus' },
-    { name: 'Bicicleta Electrica Huyser Roma', desc: 'Inspirada en el encanto histórico y la elegancia eterna de Roma, la Huyser Roma combina simplicidad, eficiencia y estilo para tus recorridos diarios', price: '$3.500.000', tag: 'Pro', img: '/images/bici-2.png', slug: 'specialized-stumpjumper' },
-  
+    { name: 'Bicicleta electrica Huyser Moscow 2.0', desc: 'La Huyser Moscow 2.0 es una E-bike urbana potente y robusta, diseñada para quienes buscan mayor rendimiento y carácter en cada trayecto', price: '$ 3.900.000', tag: 'Nuevo', img: '/images/moscow/Bicicleta-electrica-zipaquira-moscow-negra.jpg', slug: 'huyser-moscow-2-0' },
+    { name: 'Bicicleta Electrica Huyser Portugal UltraMax Litio', desc: 'La Huyser Portugal Ultra Max Litio es una E-bike urbana compacta, práctica y eficiente, diseñada para moverte con agilidad en la ciudad. ', price: '$ 3.200.000', img: '/images/portugal/Bicicleta-electrica-zipaquira-portugal-rosa.jpg', slug: 'huyser-portugal-ultramax' },
+    { name: 'Bicicleta Electrica Huyser New York Ultra Max Litio', desc: 'Inspirada en la energía imparable de Nueva York, la Huyser New York Ultra Max Litio está diseñada para quienes viven la ciudad a su propio ritmo.', price: '$5.800.000',tag: 'Pro', img: '/images/new-york/bicicleta-electrica-new-york-verde.jpg', slug: 'huyser-new-york-ultramax' },
+    { name: 'Bicicleta Electrica Huyser Roma', desc: 'Inspirada en el encanto histórico y la elegancia eterna de Roma, la Huyser Roma combina simplicidad, eficiencia y estilo para tus recorridos diarios', price: '$3.500.000',  img: '/images/roma/Bicicleta-electrica-zipaquira-roma-roja.jpg', slug: 'huyser-roma' },
 ];
 ---
 
-<section class="py-12 md:py-20 max-w-[1400px] mx-auto px-4 md:px-8 bg-brand-dark overflow-hidden text-white font-sans">
+<section class="py-12 md:py-20 max-w-7xl mx-auto px-4 md:px-8 bg-brand-dark overflow-hidden text-white font-sans">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10 border-b border-white/5 pb-6">
         <div class="space-y-1">
             <span class="text-brand-green font-bold tracking-widest text-[10px] uppercase italic">Bicicletas Eléctricas</span>
@@ -33,7 +32,6 @@ const products = [
                     class="group relative bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 hover:bg-white/[0.05] hover:border-brand-blue/20 flex flex-col h-full 
                            flex-shrink-0 w-[calc(100%-2rem)] snap-start md:w-auto md:flex-shrink-1"
                 >
-                    
                     <a href={`/productos/${product.slug}`} class="block relative flex-shrink-0">
                         <div class="relative aspect-square flex items-center justify-center p-1 bg-gradient-to-b from-white/[0.03] to-transparent overflow-hidden">
                             <img 
@@ -56,13 +54,13 @@ const products = [
                                 <h3 class="text-white text-base font-bold uppercase italic tracking-tight line-clamp-1 group-hover/text:text-brand-blue transition-colors mb-1">
                                     {product.name}
                                 </h3>
-                                <p class="text-gray-500 text-[11px] leading-snug line-clamp-2 min-h-[32px] font-normal">
+                                <p class="text-gray-500 text-[11px] leading-snug line-clamp-2 min-h-[32px] font-normal italic">
                                     {product.desc}
                                 </p>
                             </a>
                         </div>
                         
-                        <div class="flex items-center justify-between pt-4 mt-auto">
+                        <div class="flex items-center justify-between pt-4 mt-auto border-t border-white/5">
                             <span class="text-lg font-black text-brand-green italic tracking-tighter leading-none">
                                 {product.price}
                             </span>
@@ -71,6 +69,7 @@ const products = [
                                 class="add-to-cart-btn size-10 bg-white text-brand-dark rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95"
                                 data-name={product.name}
                                 data-price={product.price}
+                                data-img={product.img}
                             >
                                 <Icon name="lucide:shopping-cart" class="cart-icon size-4 stroke-[2.5px]" />
                                 <Icon name="lucide:check" class="check-icon hidden size-5 stroke-[3px]" />
@@ -83,75 +82,97 @@ const products = [
     </div>
 </section>
 
+<div id="toast-container-home" class="fixed bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-6 md:translate-x-0 z-[100] flex flex-col gap-3 pointer-events-none w-[90%] max-w-sm md:w-auto"></div>
+
 <script>
     import { addToCart } from '../../store/cartStore';
 
-    const cartButtons = document.querySelectorAll('.add-to-cart-btn');
+    function showNotification(productName: string, productImg: string) {
+        const container = document.getElementById('toast-container-home');
+        if (!container) return;
 
-    cartButtons.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const name = btn.getAttribute('data-name');
-            const price = btn.getAttribute('data-price');
+        const toast = document.createElement('div');
+        toast.className = `
+            pointer-events-auto flex items-center gap-4 bg-[#0a0a0a]/90 backdrop-blur-2xl 
+            border border-white/10 p-4 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] 
+            transform transition-all duration-500 ease-out translate-y-full opacity-0 w-full
+        `;
+        
+        toast.innerHTML = `
+            <div class="size-14 bg-white/5 rounded-xl flex items-center justify-center shrink-0 border border-white/5 p-2">
+                <img src="${productImg}" alt="${productName}" class="w-full h-full object-contain" />
+            </div>
+            <div class="flex-grow pr-2">
+                <div class="flex items-center gap-2 mb-1">
+                    <div class="size-4 bg-brand-green/20 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-2.5 text-brand-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <p class="text-[10px] font-black uppercase text-brand-blue italic tracking-widest mb-0">¡Excelente elección!</p>
+                </div>
+                <p class="text-white text-[13px] font-bold leading-snug uppercase italic mb-0.5 line-clamp-1">${productName}</p>
+                <p class="text-gray-500 text-[10px] font-light italic">Añadido a tu bolsa de rendimiento.</p>
+            </div>
+        `;
 
-            if (name && price) {
-                addToCart({ name, price });
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.remove('translate-y-full', 'opacity-0'), 10);
+        setTimeout(() => {
+            toast.classList.add('translate-y-full', 'opacity-0');
+            setTimeout(() => toast.remove(), 500);
+        }, 4000);
+    }
 
-                const cartIcon = btn.querySelector('.cart-icon');
-                const checkIcon = btn.querySelector('.check-icon');
+    function initHomeCart() {
+        const cartButtons = document.querySelectorAll('.add-to-cart-btn');
 
-                if (cartIcon && checkIcon) {
-                    btn.classList.add('btn-success');
-                    cartIcon.classList.add('hidden');
-                    checkIcon.classList.remove('hidden');
-                    
-                    setTimeout(() => {
-                        btn.classList.remove('btn-success');
-                        cartIcon.classList.remove('hidden');
-                        checkIcon.classList.add('hidden');
-                    }, 1500);
+        cartButtons.forEach((btn) => {
+            if (btn.getAttribute('data-has-listener')) return;
+            btn.setAttribute('data-has-listener', 'true');
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const name = btn.getAttribute('data-name');
+                const price = btn.getAttribute('data-price');
+                const img = btn.getAttribute('data-img');
+
+                if (name && price && img) {
+                    addToCart({ name, price, image: img });
+                    showNotification(name, img);
+
+                    const cartIcon = btn.querySelector('.cart-icon');
+                    const checkIcon = btn.querySelector('.check-icon');
+
+                    if (cartIcon && checkIcon) {
+                        btn.classList.add('btn-success');
+                        cartIcon.classList.add('hidden');
+                        checkIcon.classList.remove('hidden');
+                        
+                        setTimeout(() => {
+                            btn.classList.remove('btn-success');
+                            cartIcon.classList.remove('hidden');
+                            checkIcon.classList.add('hidden');
+                        }, 1500);
+                    }
                 }
-            }
+            });
         });
-    });
+    }
+
+    initHomeCart();
+    document.addEventListener('astro:after-swap', initHomeCart);
 </script>
 
 <style>
     .btn-success {
         background-color: #5fb660 !important;
         color: white !important;
-        box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
+        box-shadow: 0 0 15px rgba(95, 182, 96, 0.4);
     }
-
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    img {
-        will-change: transform;
-        backface-visibility: hidden;
-    }
-
-    .line-clamp-1 {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    * {
-        -webkit-tap-highlight-color: transparent;
-    }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .line-clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    * { -webkit-tap-highlight-color: transparent; }
 </style>
